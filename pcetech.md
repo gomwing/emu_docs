@@ -11,7 +11,7 @@
 
 + [1.) Introduction](#1-introduction)
 + [2.) HuC6280 - CPU](#2-huc6280---cpu)
-+ 2.1) Interrupts
++ [2.1) Interrupts](#21-interrupts)
 + [2.2) Timer](#22-timer)
 + [2.3) T flag](#23-t-flag)
 + [2.4) Timing](#24-timing)
