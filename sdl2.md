@@ -161,7 +161,7 @@ sdlTexture = SDL_CreateTexture(sdlRenderer,
 This represents a texture on the GPU. The gameplan is to finish each frame by uploading pixels to this texture, drawing the texture to the window, and flipping this drawing onto the screen. **SDL_TEXTUREACCESS_STREAMING** tells SDL that this texture's contents are going to change frequently.
 
 Before you probably had an [SDL_Surface](https://wiki.libsdl.org/SDL_Surface) for the screen that your app drew into, then called **SDL_Flip()** to put to the screen. Now you can create an [SDL_Surface](https://wiki.libsdl.org/SDL_Surface) that is always in RAM instead of using the one you would have gotten from **SDL_SetVideoMode()**, or just malloc() a block of pixels to write into. Ideally you write to a buffer of RGBA pixels, but if you need to do a conversion, that's okay too.
-```
+```C++
 extern Uint32 *myPixels;  // maybe this is a surface->pixels, or a malloc()'d buffer, or whatever.
 ```
 At the end of the frame, we want to upload to the texture like this:
@@ -283,7 +283,7 @@ SDL_ShowCursor(0);
 SDL_WM_GrabInput(SDL_GRAB_ON);
 ```
 In SDL2, this works slightly differently. You call...
-```
+```C++
 SDL_SetRelativeMouseMode(SDL_TRUE);
 ```
 ...and SDL does the rest.

@@ -7,30 +7,30 @@
  Unpublished work Copyright 2001, 2002 Charles MacDonald
 
 
- Table of contents:
+ ## Table of contents:
 
- 1.) Introduction
- 2.) HuC6280 - CPU
- 2.1) Interrupts
- 2.2) Timer
- 2.3) T flag
- 2.4) Timing
- 3.) Memory map
- 4.) I/O port
- 5.) HuC6260 - Video Display Controller
- 5.1) Register reference
- 5.2) Background
- 5.3) Sprites
- 5.4) DMA
- 6.) HuC6270 - Video Color Encoder
- 7.) Display details
- 8.) CD-ROM
- 8.1) Super System Card
- 9.) Display parameter settings
- 10.) Programmable Sound Generator
- 11.) Acknowledgements
- 12.) Contact
- 13.) Disclaimer
++ [1.) Introduction](#1-introduction)
++ [2.) HuC6280 - CPU](#2-huc6280---cpu)
++ 2.1) Interrupts
++ [2.2) Timer](#22-timer)
++ [2.3) T flag](#23-t-flag)
++ [2.4) Timing](#24-timing)
++ [3.) Memory map](#3-memory-map)
++ [4.) I/O port](#4-io-port)
++ [5.) HuC6260 - Video Display Controller](#5-huc6260---video-display-controller)
++ [5.1) Register reference](#51-register-reference)
++ [5.2) Background](#52-background)
++ [5.3) Sprites](#53-sprites)
++ [5.4) DMA](#54-dma)
++ [6.) HuC6270 - Video Color Encoder](#6-huc6270---video-color-encoder)
++ [7.) Display details](7-display-details)
++ [8.) CD-ROM](#8-cd-rom)
++ [8.1) Super System Card](#81-super-system-card)
++ [9.) Display parameter settings](#9-display-parameter-settings)
++ [10.) Programmable Sound Generator](#10-programmable-sound-generator)
++ [11.) Acknowledgements](#11-acknowledgements)
++ [12.) Contact](#12-contact--help)
++ [13.) Disclaimer](#13-disclaimer)
 
  ----------------------------------------------------------------------------
  1.) Introduction
@@ -161,53 +161,54 @@
  - The decimal mode versions of ADC and SBC do not change the state of the
    overflow flag.
 
- Flag calculation
+
+ #### Flag calculation
 
  I haven't tested all of the instructions, just those that I wasn't sure
  about.
 
  Logical Shift Right (LSR)
 
- N = 0
- C = Bit 0 of operand
- Z = Set if result is zero
+    N = 0
+    C = Bit 0 of operand
+    Z = Set if result is zero
 
  Pull X, Pull Y (PHX, PHY)
-
- N = Bit 7 of pulled byte
- Z = Set if pulled byte is zero
-
+ 
+    N = Bit 7 of pulled byte
+    Z = Set if pulled byte is zero
+ 
  Rotate Left (ROL)
-
- C = Bit 7 of operand
- N = Bit 6 of operand
- Z = Set if result is zero
-
+ 
+    C = Bit 7 of operand
+    N = Bit 6 of operand
+    Z = Set if result is zero
+ 
  Rotate right (ROR)
-
- N = Set if carry is set
- C = Bit 1 of operand
- Z = Set if result is zero
-
+ 
+    N = Set if carry is set
+    C = Bit 1 of operand
+    Z = Set if result is zero
+ 
  Test and Set Bits (TSB)
  Test and Reset Bits (TRB)
-
- N = Bit 7 of result
- V = Bit 6 of result
- Z = If result is zero
-
+ 
+    N = Bit 7 of result
+    V = Bit 6 of result
+    Z = If result is zero
+ 
  Test (TST)
-
- N = Bit 7 of operand
- V = Bit 6 of operand
- Z = Set if if operand & immediate byte is equal to zero
-
+ 
+    N = Bit 7 of operand
+    V = Bit 6 of operand
+    Z = Set if if operand & immediate byte is equal to zero
+ 
  Bit (BIT)
 
- N = Bit 7 of operand
- V = Bit 6 of operand
- Z = Set if if operand & accumulator is equal to zero
-
+    N = Bit 7 of operand
+    V = Bit 6 of operand
+    Z = Set if if operand & accumulator is equal to zero
+ 
  For the immediate form of this instruction, the flags are still calculated
  in the same way. So 'BIT #$C0' would set N and V, for example.
 
@@ -274,13 +275,13 @@
  speed determined by CSL/CSH.
 
  The timer is controlled by two registers:
+    
+    $0C00 : Timer value (bits 6-0)
+            A value of $00 counts as 1, $7F counts as 128.
+            Bit 7 is unused.
 
- $0C00 : Timer value (bits 6-0)
-         A value of $00 counts as 1, $7F counts as 128.
-         Bit 7 is unused.
-
- $0C01 : Timer enable (bit 0)
-         Bits 7-1 are unused.
+    $0C01 : Timer enable (bit 0)
+            Bits 7-1 are unused.
 
  Data written to $0C00 is copied to a 7-bit latch. When the timer is
  enabled, a 7-bit counter is loaded with the contents of the latch. The
@@ -371,12 +372,12 @@
 
  The address space is divided into 256 8K pages, and the following memory
  map refers to the page number only:
-
- $00-$7F : HuCard ROM (1)
- $80-$F7 : Unused (always returns $FF) (2)
- $F8-$FB : Work RAM (pages $F9-$FB mirror page $F8)
- $FC-$FE : Unused (always returns $FF)
- $FF     : Hardware page
+ 
+    $00-$7F : HuCard ROM (1)
+    $80-$F7 : Unused (always returns $FF) (2)
+    $F8-$FB : Work RAM (pages $F9-$FB mirror page $F8)
+    $FC-$FE : Unused (always returns $FF)
+    $FF     : Hardware page
                                      
  1. Depending on the configuration of the HuCard, ROMs smaller
     than 1MB may be mirrored within this range.
@@ -385,15 +386,15 @@
 
  Hardware page ($FF)
 
- $0000-$03FF : VDC (registers mirrored every 4 bytes) (3)
- $0400-$07FF : VCE (registers mirrored every 8 bytes) (3) 
- $0800-$0BFF : PSG (1)
- $0C00-$0FFF : Timer (registers mirrored every 2 bytes) (1)
- $1000-$13FF : I/O port (mirrored every byte) (1)
- $1400-$17FF : Interrupt control (registers mirrored every four bytes) (1)
- $1800-$1BFF : Always returns $FF (2)
- $1C00-$1FFF : Always returns $FF
-
+    $0000-$03FF : VDC (registers mirrored every 4 bytes) (3)
+    $0400-$07FF : VCE (registers mirrored every 8 bytes) (3) 
+    $0800-$0BFF : PSG (1)
+    $0C00-$0FFF : Timer (registers mirrored every 2 bytes) (1)
+    $1000-$13FF : I/O port (mirrored every byte) (1)
+    $1400-$17FF : Interrupt control (registers mirrored every four bytes) (1)
+    $1800-$1BFF : Always returns $FF (2)
+    $1C00-$1FFF : Always returns $FF
+ 
  1. The last value read from or written to $0800-$17FF is saved in an
     internal 8-bit buffer. Reading $0800-$17FF will return this value,
     though readable locations will modify certain bits in the buffer.
@@ -408,6 +409,7 @@
 
     Some example code to illustrate how the buffer works:
 
+```assembly
         stz     $0C01   ; Buffer = $00
         stz     $0C00   ; Buffer = $00
         lda     #$05
@@ -418,7 +420,7 @@
         lda     $1402   ; Read $FD, Buffer = $FD
         sta     $1000   ; Buffer = $FD
         lda     $0C00   ; Read = $80, Buffer = $80
-
+```
  2. See the CD-ROM section for more details.
 
  3. When accessing the VDC or VCE, an additional cycle is taken. This occurs
@@ -432,7 +434,7 @@
  ----------------------------------------------------------------------------
 
  Here is the layout of the I/O port bits:
-
+```
  D7 : CD-ROM base unit sense bit (1= Not attached, 0= attached)
  D6 : Country detection (1= PC-Engine, 0= TurboGrafx-16)
  D5 : Always returns '1'
@@ -441,10 +443,10 @@
  D2 : Joypad port pin 4 (read) 
  D1 : Joypad port pin 3 (read) / pin 7 (write) 
  D0 : Joypad port pin 2 (read) / pin 6 (write)
-
+```
  The TurboGrafx-16 uses a 9-pin connector for peripherals. I use the naming
  conventions from the Develo Box schematics:
-
+```
  Pin 1 - Vcc
  Pin 2 - D0     
  Pin 3 - D1     
@@ -454,7 +456,7 @@
  Pin 7 - CLR
  Pin 8 - Gnd
  Pin 9 - Gnd
-
+```
  2-button controller details:
 
  The 2-button controller has a four-way directional pad and four buttons:
@@ -463,13 +465,13 @@
  the I/O port selects directions when high, and buttons when low. The state
  of D3-D0 are inverted, so '0' means a switch is closed and '1' means a
  switch is open.
-
+```
         SEL = 0                SEL = 1
  D3 :   Run                    Left
  D2 :   Select                 Right
  D1 :   Button II              Down
  D0 :   Button I               Up
-
+```
  Games use a small delay after changing the SEL line, before the new data is
  read (a common sequence is PHA PLA NOP NOP). This ensures the multiplexer
  has had enough time to change it's state and return the right data.
@@ -518,12 +520,12 @@
  locations are repeatedly mirrored throughout the $0000-03FF area.
 
  VDC addresses:
-
- $0000 : VDC register latch
- $0001 : Unused (writes do nothing, reads return $00)
- $0002 : VDC data (LSB)
- $0003 : VDC data (MSB)
-
+ 
+    $0000 : VDC register latch
+    $0001 : Unused (writes do nothing, reads return $00)
+    $0002 : VDC data (LSB)
+    $0003 : VDC data (MSB)
+ 
  The lower five bits of $0000 select which register will be accessed
  at $0002 and $0003. Only registers $00-$02, $05-$13 are valid; selecting
  registers $03-$04 or $14-1F and trying to access them has no effect.
@@ -539,7 +541,7 @@
 
  Reading $0000 returns a set of status flags. The letters in parenthesis
  are the names of the flags from the Develo Book (I think):
-
+ ```
  D7 : Unused, always returns '0'
  D6 : Set when the VDC is waiting for a CPU access slot during
       the active display area. (BSY)
@@ -549,7 +551,7 @@
  D2 : Set when the raster compare interrupt occurs. (RR)
  D1 : Set when the sprite overflow occurance interrupt occurs. (OR)
  D0 : Set when the sprite #0 collision detection interrupt occurs. (CR)
-
+ ```
  Bit 6 is set when the VDC is waiting to read or write data requested by
  the CPU when it accesses VRR/VWR. For more information, see register $09
  in the register reference section.
@@ -594,20 +596,20 @@
  ----------------------------------------------------------------------------
  5.1) Register reference
  ----------------------------------------------------------------------------
-
- $00 - Memory Address Write Register (MAWR)
-
+ 
+    $00 - Memory Address Write Register (MAWR)
+ 
  Bits 15-0 select a word offset in VRAM that will be used for VRAM writes.
-
- $01 - Memory Address Read Register (MARR)
-
+    
+    $01 - Memory Address Read Register (MARR)
+ 
  Bits 15-0 select a word offset in VRAM that will be used for VRAM reads.
  After you have written the MSB of this value, a word from VRAM is read
  and stored in the read buffer. On power-up, the contents of the read
  buffer are indeterminate. (usually $FFFF)
-
- $02 - VRAM Read Register / VRAM Write Register (VRR/VWR)
-
+ 
+    $02 - VRAM Read Register / VRAM Write Register (VRR/VWR)
+ 
  When you write to the LSB of this register, the CPU data is stored in a
  temporary location called the write latch. When the MSB is written, the
  entire 16-bit value composed of the write latch and MSB are written into
@@ -623,16 +625,16 @@
  reading the MSB will return the upper byte of the read buffer. MARR is
  then incremented by the increment factor selected by register $05, and
  a word of VRAM is read from the new address into the read buffer.
-
- $03 - Unused
-
+ 
+    $03 - Unused
+ 
+ This register doesn't seem to have any effect when written to.
+ 
+    $04 - Unused
+ 
  This register doesn't seem to have any effect when written to.
 
- $04 - Unused
-
- This register doesn't seem to have any effect when written to.
-
- $05 - Control Register (CR)
+    $05 - Control Register (CR)
 ```
  D16-D15 : Unused
      D12 : Increment width select (bit 1)
@@ -680,9 +682,10 @@
  condition occurs. In addition the VDC will generate an IRQ1 interrupt,
  though interrupts can always be disabled through the CPUs IRQ control
  registers or the P register's I flag.
+ 
 
- $06 - Raster Compare Register (RCR)
-
+     $06 - Raster Compare Register (RCR)
+ 
  The value stored in this register is compared to the current scanline.
  If there is a match and the raster compare interrupt enable bit in register
  $05 is set, then bit 2 of the status flags is set and an interrupt occurs.
@@ -699,8 +702,9 @@
 
  Any other RCR values that are out of range ($00-$3F, $147-$3FF) will never
  result in a successful line compare.
-
- $09 - Memory Width Register (MWR)
+ 
+    $09 - Memory Width Register (MWR)
+ 
 ```
  D15-D8 : Unused
      D7 : CG mode
@@ -747,15 +751,15 @@
  
  Bits 5-4 select the width of the virtual screen:
 
- 00 - 32 characters<br>
- 01 - 64 characters<br>
- 10 - 128 characters<br>
- 11 - 128 characters
+ 00 - 32 characters  
+ 01 - 64 characters  
+ 10 - 128 characters  
+ 11 - 128 characters  
 
  Bit 6 selects the height of the virtual screen:
 
- 0 - 32 rows<br>
- 1 - 64 rows
+ 0 - 32 rows  
+ 1 - 64 rows  
 
  There are no limits on the size of the BAT, at it's largest setting of
  128x64 characters, the BAT is 16K.
@@ -763,8 +767,8 @@
  Bit 7 selects which character generator bitplanes are read by the VDC
  when the VRAM dot width is 3.
 
- 0 - Read bitplanes 0, 1, treat 2, 3 as zero<br>
- 1 - Read bitplanes 2, 3, treat 0, 1 as zero
+ 0 - Read bitplanes 0, 1, treat 2, 3 as zero  
+ 1 - Read bitplanes 2, 3, treat 0, 1 as zero  
 
  In either setting, background characters can only display four colors
  out of 16 at any given time.
@@ -829,11 +833,12 @@
  section for more details about VRAM to SAT DMA.
 
  Each SAT entry has the following format:
-```
- Word 0 : ------aaaaaaaaaa
- Word 1 : ------bbbbbbbbbb
- Word 2 : -----ccccccccccd
- Word 3 : e-ffg--hi---jjjj
+
+     Word 0 : ------aaaaaaaaaa
+     Word 1 : ------bbbbbbbbbb
+     Word 2 : -----ccccccccccd
+     Word 3 : e-ffg--hi---jjjj
+
 ```
  a = Sprite Y position (0-1023)
  b = Sprite X position (0-1023)
@@ -845,7 +850,7 @@
  h = Sprite width (CGX) (0=16 pixels, 1=32)
  i = Sprite priority flag (1= high priority, 0= low priority)
  j = Sprite palette (0-15)
-
+ ```
  Sprites are positioned in a virtual 1024x1024 space. The active display
  area starts at offset (32, 64), allowing sprites to be partially shown
  at the left and top edges, as well as giving sprites a place to be
@@ -889,10 +894,11 @@
  internal 16-entry buffer. The VDC continues to parse the SAT until the
  following conditions occur:
 
- - All 64 sprite entries have been examined.
- - All 16 buffer entries have been used.
- - The horizontal blanking period ends. (1)
+ + All 64 sprite entries have been examined.
+ + All 16 buffer entries have been used.
+ + The horizontal blanking period ends. [(1)](#notes)
  
+
  Sprites that are 32 pixels wide count as two sprites; in the event
  that such a sprite is found but there is only one buffer position left,
  then the left half of the sprite is added to the buffer, and the right half
@@ -937,7 +943,7 @@
  force sections of the background to appear in front of sprites that have
  their priority flag set but are of a lower sprite priority.
 
- Notes:
+ ##### Notes:
 
  1. This happens when the width of the display is modified. If the display
     is made smaller than 32 characters, two sprites at a time starting from
@@ -1017,9 +1023,10 @@
  The VCE is mapped to $0400-0407, and these locations are repeatedly
  mirrored throughout the $0400-07FF range in the hardware page.
 
- $0400 - VCE control
- (Write only, reads return $FF)
-
+     $0400 - VCE control
+    (Write only, reads return $FF)
+ 
+ ```
     D7 : 1= Black and white video, 0= Color video
     D6 : No effect
     D5 : No effect
@@ -1028,7 +1035,7 @@
     D2 : 1= Blur edges of graphics. (some games use this bit)
     D1 : 1= 10 MHz dot clock. 
     D0 : 1= 7 MHz dot clock, 0= 5 MHz dot clock
-
+```
  Bits 1-0 select the dot clock. This determines how many pixels are displayed
  on each horizontal line, but does not affect how many lines are shown per
  frame. If bit 0 is set while the 10 MHz dot clock is used, the color
@@ -1052,14 +1059,15 @@
  though it's only usable for an interlaced display and is controlled through
  a different register of the VCE (which is loosely based on the original
  one used in the TurboGrafx-16).
+ 
+    $0401 - Not used
+    (Reads return $FF, writes do nothing)
+<P>
 
- $0401 - Not used
- (Reads return $FF, writes do nothing)
-
- $0402 - Color table address (LSB)
- $0403 - Color table address (MSB)
- (Both are write-only, reads return $FF)
-
+    $0402 - Color table address (LSB)
+    $0403 - Color table address (MSB)
+    (Both are write-only, reads return $FF)
+ 
  These two registers form a 16-bit value, of which the lower 9 bits are
  used as an index into the color table for subsequent reads and writes
  by the data register. The remaining upper 7 bits are ignored.
@@ -1068,8 +1076,8 @@
  color data reads and writes; the address does not have to be specified
  in full beforehand.
 
- $0404 - Color table data (LSB)
- $0405 - Color table data (MSB)
+     $0404 - Color table data (LSB)
+     $0405 - Color table data (MSB)
 
  These two registers form a 16-bit value, of which the lower 9 bits
  contain color data:
@@ -1095,14 +1103,14 @@
  table entry, the LSB will remain undisturbed. You can also freely change
  either half of the address (through $0402/$0403) between writes to the
  color table data registers.
+ 
+    $0406 - Not used 
+    (Reads return $FF, writes do nothing)
 
- $0406 - Not used 
- (Reads return $FF, writes do nothing)
+    $0407 - Not used
+    (Reads return $FF, writes do nothing)
 
- $0407 - Not used
- (Reads return $FF, writes do nothing)
-
- Palette flicker
+ #### Palette flicker
 
  The VCE color table can only be accessed by either the CPU or the VCE at
  any given time, with CPU accesses taking priority. When the CPU reads
@@ -1142,10 +1150,10 @@
  shown per second, with each frame divided into 263 scanlines. These
  scanlines are grouped as follows:
 
-  14 lines for the top blanking area (shown as light black).
- 242 lines for the active display area (graphics and/or overscan color).
-   4 lines for the bottom blanking area (shown as light black).
-   3 lines for the sync area (shown as pure black).
+  14 lines for the top blanking area (shown as light black).  
+ 242 lines for the active display area (graphics and/or overscan color).  
+   4 lines for the bottom blanking area (shown as light black).  
+   3 lines for the sync area (shown as pure black).  
 
  This layout is fixed, and cannot be changed by the vertical control
  registers. They only define where the graphics data is displayed within
@@ -1242,12 +1250,13 @@
  - Stand-alone single speed CD drive that attaches to above base unit
  - System Card (HuCard) that holds related libraries for using CD hardware
 
+
  The CD drive is a SCSI compatible device. It supports the following
  commands:
 
- 00 - TEST UNIT READY
- 03 - REQUEST SENSE
- 08 - READ
+ 00 - TEST UNIT READY  
+ 03 - REQUEST SENSE  
+ 08 - READ  
 
  Command 00 is used when the machine is booting up, command 03 is commonly
  used after each command to see if it succeeded or failed, and command 08
@@ -1256,10 +1265,10 @@
 
  Everything else is assigned to the vendor specific commands:
 
- D8, D9 - Play CD audio (entire track or section thereof)
- DA     - Pause CD audio
- DD     - Read Q sub-channel
- DE     - Used in CD_DINFO, returns various information about the CD
+ D8, D9 - Play CD audio (entire track or section thereof)  
+ DA     - Pause CD audio  
+ DD     - Read Q sub-channel  
+ DE     - Used in CD_DINFO, returns various information about the CD  
 
  The READ function uses logical block addressing (LBA), which is a 21-bit
  address that specifies 2048 byte blocks. This provides 4 gigabytes of space,
@@ -1289,7 +1298,7 @@
  at a time to ADPCM RAM. This is used in the AD_TRANS function and AD_CPLAY
  which streams audio data from the CD to ADPCM RAM while audio is playing.
 
- Battery backed RAM (BRAM)
+ #### Battery backed RAM (BRAM)
 
  The base unit has 2K of battery backed RAM which is used to save high
  scores or the current progress in a game. The battery backed RAM is said
@@ -1309,15 +1318,15 @@
  mode, which would seem to indicate that BRAM is slow enough that it cannot
  be reliably used in high speed mode.
 
- CD-ROM registers
+ #### CD-ROM registers
 
- $1800 - CDC status
+    $1800 - CDC status
 
  When sending a command, $1800 is written to several times. Otherwise, it
  returns a status value when read which is checked in nearly all of the CD
  related functions.
 
- $1801 - CDC command / status / data
+    $1801 - CDC command / status / data
 
  This register is only written to when a command is being sent.
  The sequence is $81, $FF, and then the command byte and it's parameters.
@@ -1326,7 +1335,7 @@
  Several System Card functions which read a few bytes worth of CD data at a
  time retrieve the data from an internal sector buffer through $1801.
 
- $1802 - ADPCM / CD control
+    $1802 - ADPCM / CD control
 
  This register is read and written to often in many of the CD and ADPCM
  related functions in the System Card.
@@ -1341,7 +1350,7 @@
  of $1800, then clears bit 7. Perhaps this is used to tell the CD that data
  has been read or written and it should prepare for the next read or write.
 
- $1803 - BRAM lock / CD status
+    $1803 - BRAM lock / CD status
 
  Reading from this address locks BRAM.
 
@@ -1355,13 +1364,13 @@
  of the sample data is remaining, and cleared when more than half of the
  sample data is remaining. (according to AD_STAT)
 
- $1804 - CD reset
+    $1804 - CD reset
 
  Bit 2 is used to reset the CD hardware. The CD_RESET function sets bit 2,
  waits for a few cycles, and then clears bit 2.
 
- $1805 - Convert PCM data / PCM data
- $1806 - PCM data
+    $1805 - Convert PCM data / PCM data
+    $1806 - PCM data
 
  When $1805 is written to, the current audio data from the CD can be read
  from $1805 and $1806 after about 112 cycles. They will return the same data
@@ -1384,7 +1393,7 @@
  PCM. I'd also bet that the System Card's internal CD player which shows two
  bars to represent the volume level of each channel uses these registers.
 
- $1807 - BRAM unlock / CD status
+    $1807 - BRAM unlock / CD status
 
  Setting bit 7 will unlock BRAM.
 
@@ -1400,7 +1409,7 @@
  of $1803 is set prior to reading, so it's safe to say CD_SUBRD is only
  valid when a CD is being accessed.
 
- $1808 - ADPCM address (LSB) / CD data
+    $1808 - ADPCM address (LSB) / CD data
 
  Writing to this port loads the lower 8 bits of a 16-bit address that
  can be copied to the ADPCM read or write pointers.
@@ -1408,12 +1417,12 @@
  Several System Card functions which read a sector's worth of data at a
  time retrieve the data from an internal sector buffer through $1808.
 
- $1809 - ADPCM address (MSB)
+    $1809 - ADPCM address (MSB)
 
  Writing to this port loads the upper 8 bits of a 16-bit address that
  can be copied to the ADPCM read or write pointers.
 
- $180A - ADPCM RAM data port
+    $180A - ADPCM RAM data port
 
  $180A allows access to the ADPCM RAM at the offset pointed to by the
  write and read pointer. After each access, the read or write pointer is
@@ -1432,7 +1441,7 @@
  The current pointer value will change if you leave bits in $180D set when
  reading or writing $180A. The exact effects are described later.
 
- $180B - ADPCM DMA control
+    $180B - ADPCM DMA control
 
  Bits 1 and/or 0 of $180B are set when an CD to ADPCM DMA transfer is in
  progress. The AD_TRANS and AD_WRITE functions check these bits and abort
@@ -1444,7 +1453,7 @@
  polling flags in bit 2 of $180C and bit 5 of $1803. Afterwards, it clears
  bit 1 and exits.
  
- $180C - ADPCM status
+    $180C - ADPCM status
 
  If bit 7 is set, the ADPCM controller is busy processing the last read
  from $180A. The BIOS polls this bit before each read from $180A in AD_READ.
@@ -1458,7 +1467,7 @@
 
  If bit 1 is set, sample playback has been halted. (according to AD_STAT)
 
- $180D - ADPCM address control
+    $180D - ADPCM address control
 
  Bit 7 will cause the ADPCM hardware to be reset when it is set to one and
  then zero. When this happens, the read buffer (at $180A) keeps it's contents
@@ -1488,15 +1497,14 @@
  I'm currently trying to document the various settings, which I will include
  in a future update.
 
- $180E - ADPCM playback rate
+    $180E - ADPCM playback rate
 
  The lower four bits of this register set the playback rate for ADPCM
  samples. According to a tghack-list post, the playback rate is as
  follows:
+       *__Sample rate (KHz) = 32 / (16 - (value & $0F))__*
 
-        Sample rate (KHz) = 32 / (16 - (value & $0F))
-
- $180F - ADPCM and CD audio fade timer
+    $180F - ADPCM and CD audio fade timer
 
  I haven't tested the ADPCM fade, just the CD audio one.
 
@@ -1538,7 +1546,7 @@
  entry $E0DE in the jump table. (replacing KEY_BIOS in earlier BIOS
  revisions) It's purpose is to read some new registers mapped to $18Cx area
  for identification. It does the following checks:
-```
+```C++
  if ($18C5 == $55 && $18C6 == $AA)
  {
     X = $03, A = $68, carry = 0
