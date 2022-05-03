@@ -85,8 +85,9 @@ So you might have had something like this:
 ```c++
 SDL_WM_SetCaption("My Game Window", "game");
 SDL_Surface *screen = SDL_SetVideoMode(640, 480, 0, SDL_FULLSCREEN | SDL_OPENGL);
-Which is now this:
 ```
+Which is now this:
+
 ```c++
 SDL_Window *screen = SDL_CreateWindow("My Game Window",
                           SDL_WINDOWPOS_UNDEFINED,
@@ -105,6 +106,7 @@ The setup looks like this.
 **SDL_SetVideoMode()** becomes [SDL_CreateWindow](https://wiki.libsdl.org/SDL_CreateWindow)(), as we discussed before. But what do we put for the resolution? If your game was hardcoded to 640x480, for example, you probably were running into monitors that couldn't do that fullscreen resolution at this point, and in windowed mode, your game probably looked like an animated postage stamp on really high-end monitors. There's a better solution in SDL2.
 
 We don't call **SDL_ListModes()** anymore. There's an equivalent in SDL2 (call [SDL_GetDisplayMode()](https://wiki.libsdl.org/SDL_GetDisplayMode) in a loop, [SDL_GetNumDisplayModes()](https://wiki.libsdl.org/SDL_GetNumDisplayModes) times), but instead we're going to use a new feature called "fullscreen desktop," which tells SDL "give me the whole screen and don't change the resolution." For our hypothetical 640x480 game, it might look like this:
+
 ```C++
 SDL_Window *sdlWindow = SDL_CreateWindow(title,
                              SDL_WINDOWPOS_UNDEFINED,
@@ -149,6 +151,7 @@ Now we're ready to start drawing for real.
 A special case for old school software rendered games: the application wants to draw every pixel itself and get that final set of pixels to the screen efficiently in one big blit. An example of a game like this is Doom, or Duke Nukem 3D, or many others.
 
 For this, you're going to want a single SDL_Texture that will represent the screen. Let's create one now for our 640x480 game:
+
 ```C++
 sdlTexture = SDL_CreateTexture(sdlRenderer,
                                SDL_PIXELFORMAT_ARGB8888,
@@ -162,30 +165,37 @@ Before you probably had an [SDL_Surface](https://wiki.libsdl.org/SDL_Surface) fo
 extern Uint32 *myPixels;  // maybe this is a surface->pixels, or a malloc()'d buffer, or whatever.
 ```
 At the end of the frame, we want to upload to the texture like this:
+
 ```C++
 SDL_UpdateTexture(sdlTexture, NULL, myPixels, 640 * sizeof (Uint32));
 ```
+
 This will upload your pixels to GPU memory. That NULL can be a subregion if you want to mess around with dirty rectangles, but chances are modern hardware can just swallow the whole framebuffer without much trouble. The final argument is the pitch--the number of bytes from the start of one row to the next--and since we have a linear RGBA buffer in this example, it's just 640 times 4 (r,g,b,a).
 
 Now get that texture to the screen:
+
 ```C++
 SDL_RenderClear(sdlRenderer);
 SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
 SDL_RenderPresent(sdlRenderer);
 ```
+
 That's all. [SDL_RenderClear()](https://wiki.libsdl.org/SDL_RenderClear) wipes out the existing video framebuffer (in case, say, the Steam Overlay wrote over it last frame), [SDL_RenderCopy()](https://wiki.libsdl.org/SDL_RenderCopy) moves the texture's contents to the video framebuffer (and thanks to [SDL_RenderSetLogicalSize()](https://wiki.libsdl.org/SDL_RenderSetLogicalSize), it will be scaled/centered as if the monitor was 640x480), and [SDL_RenderPresent()](https://wiki.libsdl.org/SDL_RenderPresent) puts it on the screen.
 
 #### If your game wants to blit surfaces to the screen
 This scenario has your SDL 1.2 game loading a bunch of graphics from disk into a bunch of [SDL_Surfaces](https://wiki.libsdl.org/SDL_Surface), possibly trying to get them into video RAM with **SDL_HWSURFACE**. You load these once, and you blit them over and over to the framebuffer as necessary, but otherwise they never change. A simple 2D platformer might do this. If you tend to think of your surfaces as "sprites," and not buffers of pixels, then this is probably you.
 
 You can build individual textures (surfaces that live in GPU memory) like we did for that one big texture:
+
 ```C++
 sdlTexture = SDL_CreateTexture(sdlRenderer,
                                SDL_PIXELFORMAT_ARGB8888,
                                SDL_TEXTUREACCESS_STATIC,
                                myWidth, myHeight);
 ```
+
 Which does what you'd expect. We use **SDL_TEXTUREACCESS_STATIC**, because we're going to upload our pixels once instead of over and over. But a more convenient solution might be:
+
 ```
 sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer, mySurface);
 ```
