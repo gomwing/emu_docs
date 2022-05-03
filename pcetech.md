@@ -6,97 +6,7 @@
 
  Unpublished work Copyright 2001, 2002 Charles MacDonald
 
- Revision history:
 
- [09/22/01]
- - Initial revision
- [09/23/01]
- - Added CD-ROM details to memory map 
- - Added CD sense bit to I/O port
- - Fixed description of read latch loading
- - Added display parameter list
- [09/24/01]
- - Formatted and cleaned up document
- - Added BRAM details
- - Added display layout information
- - Re-tested the effect of illegal instructions on P and S
- - Re-tested P startup value
- - Re-tested MPR startup value
- - Rewrote T-flag section
- - Rewrote CD-ROM section
- - Added details to VCE section
- [09/25/01]
- - Added more details to VCE section
- - Added joypad connector pinout
- - Added 2-button controller details
- - Added Turbo Tap information
- - Added information on block transfer instructions
- [09/28/01]
- - Added description of MWR register and CG mode processing
- - Added description of VDC addresss and register access
- - Added sprite information
- - Added background information
- - Confirmed use of status flag bits
- - Added several registers to register reference
- [10/01/01]
- - Added read result for VCE address registers
- - Added preliminary Super System Card information
- - Added details of BRAM unlock sequence
- [10/07/01]
- - Added information on VDC register $05
- - Added information on VDC/VCE accesses
- - Added sprite section
- - Added details on invalid pattern name values
- [10/08/01]
- - Added details on $0800-$17FF data buffer
- - Added information on invalid TAM/TMA arguments
- - Added information on store immediate instructions
- - Added information on BRK and B flag
- - Confirmed cycle count for illegal instructions
- - Added information on cross-page/bank branches
- - Added information on RMW instructions
- - Added information on JMP,indirect
- [10/10/01]
- - Added information of P state within interrupts
- - Added information on T flag and RTI
- - Added better description of TMA #$00 results
- [10/11/01]
- - Added information on when CRT registers can be changed
- - Added DMA section
- [10/25/01]
- - Added timer section
- - Added interrupt section
- - Fixed VCE dot clock information
- - Made minor changes to a few sections
- - Confirmed CPU speed at power-up
- - Added timing section
- [10/27/01]
- - Added more details to the timer section
- - Added a note about ADC
- [12/02/01]
- - Added information on how TAM and TMA work
- - Rewrote description of RCR register
- [12/07/01]
- - Added observations about CD-ROM registers
- - Added information on ADPCM hardware
- - Added more information about block transfers
- [12/08/01]
- - Added more information on TMA #$00
- - Added information on IRQ2
- - Added information on initial timer and IRQ register values
- - Added a note about SBC
- [01/25/02]
- - Added details about VCE palette flicker
- - Added details on flag calculation for some instructions
- - Rewrote display details section
- - Fixed description of VDC's VD flag
- - Added some notes about the PSG
- - Added lots of information to the CD section
- [02/28/02]
- - Added a note about $180D
- - Added a note about block transfer instructions
- - Added details on CSL, CSH
- 
  Table of contents:
 
  1.) Introduction
@@ -1753,3 +1663,127 @@
  Regarding distribution, you cannot put this document on another
  website, nor link directly to it.
 
+-----------------------------------------------------------------------------------
+ ### Revision history:
+
+ [09/22/01]
+ - Initial revision
+ 
+
+ [09/23/01]
+ - Added CD-ROM details to memory map 
+ - Added CD sense bit to I/O port
+ - Fixed description of read latch loading
+ - Added display parameter list
+
+
+ [09/24/01]
+ - Formatted and cleaned up document
+ - Added BRAM details
+ - Added display layout information
+ - Re-tested the effect of illegal instructions on P and S
+ - Re-tested P startup value
+ - Re-tested MPR startup value
+ - Rewrote T-flag section
+ - Rewrote CD-ROM section
+ - Added details to VCE section
+
+
+ [09/25/01]
+ - Added more details to VCE section
+ - Added joypad connector pinout
+ - Added 2-button controller details
+ - Added Turbo Tap information
+ - Added information on block transfer instructions
+
+
+ [09/28/01]
+ - Added description of MWR register and CG mode processing
+ - Added description of VDC addresss and register access
+ - Added sprite information
+ - Added background information
+ - Confirmed use of status flag bits
+ - Added several registers to register reference
+
+
+ [10/01/01]
+ - Added read result for VCE address registers
+ - Added preliminary Super System Card information
+ - Added details of BRAM unlock sequence
+
+
+ [10/07/01]
+ - Added information on VDC register $05
+ - Added information on VDC/VCE accesses
+ - Added sprite section
+ - Added details on invalid pattern name values
+
+
+ [10/08/01]
+ - Added details on $0800-$17FF data buffer
+ - Added information on invalid TAM/TMA arguments
+ - Added information on store immediate instructions
+ - Added information on BRK and B flag
+ - Confirmed cycle count for illegal instructions
+ - Added information on cross-page/bank branches
+ - Added information on RMW instructions
+ - Added information on JMP,indirect
+
+
+ [10/10/01]
+ - Added information of P state within interrupts
+ - Added information on T flag and RTI
+ - Added better description of TMA #$00 results
+
+
+ [10/11/01]
+ - Added information on when CRT registers can be changed
+ - Added DMA section
+
+
+ [10/25/01]
+ - Added timer section
+ - Added interrupt section
+ - Fixed VCE dot clock information
+ - Made minor changes to a few sections
+ - Confirmed CPU speed at power-up
+ - Added timing section
+
+
+ [10/27/01]
+ - Added more details to the timer section
+ - Added a note about ADC
+
+
+ [12/02/01]
+ - Added information on how TAM and TMA work
+ - Rewrote description of RCR register
+
+
+ [12/07/01]
+ - Added observations about CD-ROM registers
+ - Added information on ADPCM hardware
+ - Added more information about block transfers
+
+
+ [12/08/01]
+ - Added more information on TMA #$00
+ - Added information on IRQ2
+ - Added information on initial timer and IRQ register values
+ - Added a note about SBC
+
+
+ [01/25/02]
+ - Added details about VCE palette flicker
+ - Added details on flag calculation for some instructions
+ - Rewrote display details section
+ - Fixed description of VDC's VD flag
+ - Added some notes about the PSG
+ - Added lots of information to the CD section
+
+
+ [02/28/02]
+ - Added a note about $180D
+ - Added a note about block transfer instructions
+ - Added details on CSL, CSH
+ 
