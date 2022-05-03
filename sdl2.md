@@ -82,12 +82,12 @@ If you have a 2D game, chances are you've taken one of three approaches to rende
 Remember **SDL_SetVideoMode()**? It's completely gone. SDL 2.0 allows you to have multiple windows, so the old function didn't make sense any more.
 
 So you might have had something like this:
-```
+```c++
 SDL_WM_SetCaption("My Game Window", "game");
 SDL_Surface *screen = SDL_SetVideoMode(640, 480, 0, SDL_FULLSCREEN | SDL_OPENGL);
 Which is now this:
 ```
-```
+```c++
 SDL_Window *screen = SDL_CreateWindow("My Game Window",
                           SDL_WINDOWPOS_UNDEFINED,
                           SDL_WINDOWPOS_UNDEFINED,
@@ -105,7 +105,7 @@ The setup looks like this.
 **SDL_SetVideoMode()** becomes [SDL_CreateWindow](https://wiki.libsdl.org/SDL_CreateWindow)(), as we discussed before. But what do we put for the resolution? If your game was hardcoded to 640x480, for example, you probably were running into monitors that couldn't do that fullscreen resolution at this point, and in windowed mode, your game probably looked like an animated postage stamp on really high-end monitors. There's a better solution in SDL2.
 
 We don't call **SDL_ListModes()** anymore. There's an equivalent in SDL2 (call [SDL_GetDisplayMode()](https://wiki.libsdl.org/SDL_GetDisplayMode) in a loop, [SDL_GetNumDisplayModes()](https://wiki.libsdl.org/SDL_GetNumDisplayModes) times), but instead we're going to use a new feature called "fullscreen desktop," which tells SDL "give me the whole screen and don't change the resolution." For our hypothetical 640x480 game, it might look like this:
-```
+```C++
 SDL_Window *sdlWindow = SDL_CreateWindow(title,
                              SDL_WINDOWPOS_UNDEFINED,
                              SDL_WINDOWPOS_UNDEFINED,
@@ -121,13 +121,13 @@ SDL_Renderer *renderer = SDL_CreateRenderer(sdlWindow, -1, 0);
 A renderer hides the details of how we draw into the window. This might be using Direct3D, OpenGL, OpenGL ES, or software surfaces behind the scenes, depending on what the system offers; your code doesn't change, regardless of what SDL chooses (although you are welcome to force one kind of renderer or another). If you want to attempt to force sync-to-vblank to reduce tearing, you can use **SDL_RENDERER_PRESENTVSYNC** instead of zero for the third parameter. You shouldn't create a window with the **SDL_WINDOW_OPENGL** flag here. If [SDL_CreateRenderer()](https://wiki.libsdl.org/SDL_CreateRenderer) decides it wants to use OpenGL, it'll update the window appropriately for you.
 
 Now that you understand how this works, you can also do this all in one step with [SDL_CreateWindowAndRenderer()](https://wiki.libsdl.org/SDL_CreateWindowAndRenderer), if you don't want anything fancy:
-```
+```C++
 SDL_Window *sdlWindow;
 SDL_Renderer *sdlRenderer;
 SDL_CreateWindowAndRenderer(0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP, &sdlWindow, &sdlRenderer);
 ```
 Assuming these functions didn't fail (always check for NULLs!), you are ready to start drawing to the screen. Let's get started by clearing the screen to black.
-```
+```c++
 SDL_SetRenderDrawColor(sdlRenderer, 0, 0, 0, 255);
 SDL_RenderClear(sdlRenderer);
 SDL_RenderPresent(sdlRenderer);
@@ -137,7 +137,7 @@ This works like you might think; draw in black (r,g,b all zero, alpha full), cle
 One more general thing to set up here. Since we're using **SDL_WINDOW_FULLSCREEN_DESKTOP**, we don't actually know how much screen we've got to draw to. Fortunately, we don't have to know. One of the nice things about 1.2 is that you could say "I want a 640x480 window and I don't care how you get it done," even if getting it done meant centering the window in a larger resolution on behalf of your application.
 
 For 2.0, the render API lets you do this...
-```
+```C++
 SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");  // make the scaled rendering look smoother.
 SDL_RenderSetLogicalSize(sdlRenderer, 640, 480);
 ```
@@ -149,7 +149,7 @@ Now we're ready to start drawing for real.
 A special case for old school software rendered games: the application wants to draw every pixel itself and get that final set of pixels to the screen efficiently in one big blit. An example of a game like this is Doom, or Duke Nukem 3D, or many others.
 
 For this, you're going to want a single SDL_Texture that will represent the screen. Let's create one now for our 640x480 game:
-```
+```C++
 sdlTexture = SDL_CreateTexture(sdlRenderer,
                                SDL_PIXELFORMAT_ARGB8888,
                                SDL_TEXTUREACCESS_STREAMING,
@@ -162,13 +162,13 @@ Before you probably had an [SDL_Surface](https://wiki.libsdl.org/SDL_Surface) fo
 extern Uint32 *myPixels;  // maybe this is a surface->pixels, or a malloc()'d buffer, or whatever.
 ```
 At the end of the frame, we want to upload to the texture like this:
-```
+```C++
 SDL_UpdateTexture(sdlTexture, NULL, myPixels, 640 * sizeof (Uint32));
 ```
 This will upload your pixels to GPU memory. That NULL can be a subregion if you want to mess around with dirty rectangles, but chances are modern hardware can just swallow the whole framebuffer without much trouble. The final argument is the pitch--the number of bytes from the start of one row to the next--and since we have a linear RGBA buffer in this example, it's just 640 times 4 (r,g,b,a).
 
 Now get that texture to the screen:
-```
+```C++
 SDL_RenderClear(sdlRenderer);
 SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
 SDL_RenderPresent(sdlRenderer);
@@ -179,7 +179,7 @@ That's all. [SDL_RenderClear()](https://wiki.libsdl.org/SDL_RenderClear) wipes o
 This scenario has your SDL 1.2 game loading a bunch of graphics from disk into a bunch of [SDL_Surfaces](https://wiki.libsdl.org/SDL_Surface), possibly trying to get them into video RAM with **SDL_HWSURFACE**. You load these once, and you blit them over and over to the framebuffer as necessary, but otherwise they never change. A simple 2D platformer might do this. If you tend to think of your surfaces as "sprites," and not buffers of pixels, then this is probably you.
 
 You can build individual textures (surfaces that live in GPU memory) like we did for that one big texture:
-```
+```C++
 sdlTexture = SDL_CreateTexture(sdlRenderer,
                                SDL_PIXELFORMAT_ARGB8888,
                                SDL_TEXTUREACCESS_STATIC,
@@ -200,7 +200,7 @@ The good news: the 1.2 [SDL_Surface](https://wiki.libsdl.org/SDL_Surface) API mo
 
 SDL_Surface *screen = SDL_SetVideoMode(640, 480, 32, 0);
 ...to this...
-```
+```C++
 // if all this hex scares you, check out SDL_PixelFormatEnumToMasks()!
 SDL_Surface *screen = SDL_CreateRGBSurface(0, 640, 480, 32,
                                         0x00FF0000,
@@ -213,7 +213,7 @@ SDL_Texture *sdlTexture = SDL_CreateTexture(sdlRenderer,
                                             640, 480);
 ```
 ...and continue blitting things around and tweaking pixels as before, composing your final framebuffer into this SDL_Surface. Once you're ready to get those pixels on the screen, you do this just like in our first scenario:
-```
+```C++
 SDL_UpdateTexture(sdlTexture, NULL, screen->pixels, screen->pitch);
 SDL_RenderClear(sdlRenderer);
 SDL_RenderCopy(sdlRenderer, sdlTexture, NULL, NULL);
@@ -268,7 +268,7 @@ Now, for mouse input.
 The first change, simply enough, is that the mousewheel is no longer a button. This was a mistake of history, and we've corrected it in SDL 2.0. Look for [SDL_MOUSEWHEEL](https://wiki.libsdl.org/SDL_EventType) events. We support both vertical and horizontal wheels, and some platforms can treat two-finger scrolling on a trackpad as wheel input, too. You will no longer receive [SDL_BUTTONDOWN](https://wiki.libsdl.org/SDL_EventType) events for mouse wheels, and buttons 4 and 5 are real mouse buttons now.
 
 If your game needed to roll the mouse in one direction forever, for example to let a player in an FPS to spin around without the mouse hitting the edge of the screen and stopping, you probably hid the mouse cursor and grabbed input:
-```
+```C++
 SDL_ShowCursor(0);
 SDL_WM_GrabInput(SDL_GRAB_ON);
 ```
@@ -282,11 +282,11 @@ SDL_SetRelativeMouseMode(SDL_TRUE);
 [SDL_PushEvent()](https://wiki.libsdl.org/SDL_PushEvent) now returns 1 on success instead of 0.
 
 Events mask are now specified using ranges:
-```
+```C++
 SDL_PeepEvents(&event, 1, SDL_GETEVENT, SDL_EVENTMASK(SDL_MOUSEBUTTONDOWN));
 ```
 becomes:
-```
+```C++
 SDL_PeepEvents(&event, 1, SDL_GETEVENT, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONDOWN);
 ```
 
@@ -299,7 +299,7 @@ That one really important exception: The audio callback does NOT start with a fu
 Joystick events now refer to an SDL_JoystickID. This is because SDL 2.0 can handle joysticks coming and going, as devices are plugged in and pulled out during your game's lifetime, so the index into the device list that 1.2 uses would be meaningless as the available device list changes.
 
 To get an SDL_JoystickID for your opened SDL_Joystick*, call:
-```
+```C++
 SDL_JoystickID myID = SDL_JoystickInstanceID(myOpenedStick);
 ```
 And compare the joystick events' **which** field against myID. If you aren't using the event queue for joysticks, [SDL_JoystickGetAxis()](https://wiki.libsdl.org/SDL_JoystickGetAxis) and friends work just like SDL 1.2.
@@ -327,7 +327,7 @@ First, there are certain events that only apply to mobile devices, or better sai
 As such, we've added new SDL events for some Android and iOS specific details, but you should set up an SDL event filter to catch them as soon as the OS reports them, because waiting until your next [SDL_PollEvent()](https://wiki.libsdl.org/SDL_PollEvent) loop will be too late.
 
 For example, there's SDL_APP_WILLENTERBACKGROUND, which is iOS's **applicationWillResignActive()**, and if you draw to the screen after this event arrives, iOS terminates your process. So you want to catch this immediately:
-```
+```C++
 int SDLCALL myEventFilter(void *userdata, SDL_Event * event)
 {
     if (event->type == SDL_APP_WILLENTERBACKGROUND) {
@@ -377,7 +377,7 @@ A short cheat sheet where some of the old functions and other stuff went:
 
 ## Other stuff
 There's an enormous amount of new and interesting functionality in SDL 2.0 that 1.2 couldn't even dream of. We've only tried to explain what you might have to do to get your 1.2 program running on 2.0 here, but you should explore the documentation for things that you might have always wished for and, until now, done without. For example, every game I've ever ported ended up with a message box function that looked like this:
-```
+```C++
 #if USING_SDL
 fprintf(stderr, "MSGBOX: %s\n%s\n", title, text);   // oh well.
 #endif
