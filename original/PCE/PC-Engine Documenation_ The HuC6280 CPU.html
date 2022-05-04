@@ -1,0 +1,2003 @@
+
+<!-- saved from url=(0053)http://shu.emuunlim.com/download/pcedocs/pce_cpu.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<title>
+		PC-Engine Documenation: The HuC6280 CPU
+	</title>
+</head>
+<body>
+<h1>The HuC6280 CPU</h1>
+The PC-Engine uses a special version of the well-known 6502 CPU. It has additional Opcodes, more addressing-modes and a memory management unit (MMU).
+
+This is a list of Opcodes, that are available with the Hu6502 CPU.
+
+<h2>Add With Carry (ADC)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Add the data located at the effective address specified by the operand to the contents of the accumulator. Add one to the result if the carry flag is set, and store the final result in the accumulator. This opcode takes one extra cycle to complete if the decimal mode flag D is set.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Immediate</td><td>ADC #nn</td><td>69 nn</td><td>2</td><td>2 </td></tr>
+<tr><td>Zero Page</td><td>ADC ZZ</td><td>65 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Zero Page, X</td><td>ADC ZZ, X</td><td>75 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Indirect</td><td>ADC (ZZ)</td><td>72 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Indexed Indirect, X</td><td>ADC (ZZ, X)</td><td>61 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Indirect Indexed, Y</td><td>ADC (ZZ), Y</td><td>71 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Absolute</td><td>ADC hhll</td><td>6D ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, X</td><td>ADC hhll, X</td><td>7D ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, Y</td><td>ADC hhll, Y</td><td>79 ll hh</td><td>3</td><td>5 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>V</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>C </td></tr>
+</tbody></table>
+</p>
+
+<h2>And Accumulator with Memory (AND)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Bitwise logical AND the data located at the effective address specified by the operand with the contents of the accumulator. Each bit in the accumulator is ANDed with the corresponding bit in memory, with the result being stored in the respective accumulator bit.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Immediate</td><td>AND #nn</td><td>29 nn</td><td>2</td><td>2 </td></tr>
+<tr><td>Zero Page</td><td>AND ZZ</td><td>25 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Zero Page, X</td><td>AND ZZ, X</td><td>35 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Indirect</td><td>AND (ZZ)</td><td>32 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Indexed Indirect, X</td><td>AND (ZZ, X)</td><td>21 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Indirect Indexed, Y</td><td>AND (ZZ), Y</td><td>31 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Absolute</td><td>AND hhll</td><td>2D ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, X</td><td>AND hhll, X</td><td>3D ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, Y</td><td>AND hhll, Y</td><td>39 ll hh</td><td>3</td><td>5 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table>
+</p>
+
+<h2>Shift Memory or Accumulator Left (ASL)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Shift the contents of the location specified by the operand left one bit.
+That is, bit one takes on the value originally found in bit zero, bit two
+takes the value originally in bit one, and so on; bit 7 is transferred into
+the carry flag; bit 0 is cleared. The arithmetic result of the operation is
+an unsigned multiplication by two.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Zero Page</td><td>ASL ZZ</td><td>06 ZZ</td><td>2</td><td>6 </td></tr>
+<tr><td>Zero Page, X</td><td>ASL ZZ, X</td><td>16 ZZ</td><td>2</td><td>6 </td></tr>
+<tr><td>Absolute</td><td>ASL hhll</td><td>0E ll hh</td><td>3</td><td>7 </td></tr>
+<tr><td>Absolute, X</td><td>ASL hhll, X</td><td>1E ll hh</td><td>3</td><td>7 </td></tr>
+<tr><td>Accumulator</td><td>ASL A</td><td>0A</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>C </td></tr>
+</tbody></table>
+</p>
+
+<h2>Branch on Bit Reset (BBRi)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The  <em> i </em> th bit value in zero page memory location ZZ is tested. If it is clear, a branch is taken; if it is set, the instruction immediately following the three-byte BBRi instruction is executed. If the branch is taken, a one-byte signed displacement, fetched from the third byte of the instruction, is added to the program counter. Once the branch address has been calculated, the result is loaded into the program counter, transferring control to that location. The allowable range of the displacement is -128 to +127  <em> from the instruction immediately following the
+branch </em> .
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Zero Page, Relative</td><td>BBR0 ZZ, hhll</td><td>0F ZZ rr</td><td>3</td><td>6 </td></tr>
+<tr><td>Zero Page, Relative</td><td>BBR1 ZZ, hhll</td><td>1F ZZ rr</td><td>3</td><td>6 </td></tr>
+<tr><td>Zero Page, Relative</td><td>BBR2 ZZ, hhll</td><td>2F ZZ rr</td><td>3</td><td>6 </td></tr>
+<tr><td>Zero Page, Relative</td><td>BBR3 ZZ, hhll</td><td>3F ZZ rr</td><td>3</td><td>6 </td></tr>
+<tr><td>Zero Page, Relative</td><td>BBR4 ZZ, hhll</td><td>4F ZZ rr</td><td>3</td><td>6 </td></tr>
+<tr><td>Zero Page, Relative</td><td>BBR5 ZZ, hhll</td><td>5F ZZ rr</td><td>3</td><td>6 </td></tr>
+<tr><td>Zero Page, Relative</td><td>BBR6 ZZ, hhll</td><td>6F ZZ rr</td><td>3</td><td>6 </td></tr>
+<tr><td>Zero Page, Relative</td><td>BBR7 ZZ, hhll</td><td>7F ZZ rr</td><td>3</td><td>6 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table>
+</p>
+
+
+<h2>Branch on Carry Clear (BCC)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The carry flag in the status register is tested. If it is clear, a branch is taken; if it is set, the instruction immediately following the two-byte BCC instruction is executed. If the branch is taken, a one-byte signed displacement, fetched from the third byte of the instruction, is added to the program counter. Once the branch address has been calculated, the result is loaded into the program counter, transferring control to that location. The allowable range of the displacement is -128 to +127  <em> from the instruction immediately following the
+branch </em> . Note that BCC determines if the result of a comparison is less than; therefore, BCC is sometimes written as BLT (Branch if Less Than).
+This opcode takes one extra cycle if the branch is taken, and another extra cycle if a page boundary is crossed in taking the branch.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Relative</td><td>BCC hhll</td><td>90 rr</td><td>2</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table>
+</p>
+
+<h2>Branch on Bit Set (BBSi)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The  <em> i </em> th bit value in zero page memory location ZZ is tested. If it is set, a branch is taken; if it is clear, the instruction immediately following the three-byte BBSi instruction is executed. If the branch is taken, a one-byte signed displacement, fetched from the third byte of the instruction, is added to the program counter. Once the branch address has been calculated, the result is loaded into the program counter, transferring control to that location. The allowable range of the displacement is -128 to +127  <em> from the instruction immediately following the
+branch </em> . 
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Zero Page, Relative</td><td>BBS0 ZZ, hhll</td><td>8F ZZ rr</td><td>3</td><td>6 </td></tr>
+<tr><td>Zero Page, Relative</td><td>BBS1 ZZ, hhll</td><td>9F ZZ rr</td><td>3</td><td>6 </td></tr>
+<tr><td>Zero Page, Relative</td><td>BBS2 ZZ, hhll</td><td>AF ZZ rr</td><td>3</td><td>6 </td></tr>
+<tr><td>Zero Page, Relative</td><td>BBS3 ZZ, hhll</td><td>BF ZZ rr</td><td>3</td><td>6 </td></tr>
+<tr><td>Zero Page, Relative</td><td>BBS4 ZZ, hhll</td><td>CF ZZ rr</td><td>3</td><td>6 </td></tr>
+<tr><td>Zero Page, Relative</td><td>BBS5 ZZ, hhll</td><td>DF ZZ rr</td><td>3</td><td>6 </td></tr>
+<tr><td>Zero Page, Relative</td><td>BBS6 ZZ, hhll</td><td>EF ZZ rr</td><td>3</td><td>6 </td></tr>
+<tr><td>Zero Page, Relative</td><td>BBS7 ZZ, hhll</td><td>FF ZZ rr</td><td>3</td><td>6 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table>
+</p>
+
+<h2>Branch on Carry Set (BCS)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The carry flag in the status register is tested. If it is set, a branch is taken; if it is clear, the instruction immediately following the two-byte BCS instruction is executed. If the branch is taken, a one-byte signed displacement, fetched from the third byte of the instruction, is added to the program counter. Once the branch address has been calculated, the result is loaded into the program counter, transferring control to that location. The allowable range of the displacement is -128 to +127  <em> from the instruction immediately following the
+branch </em> . Note that BCC determines if the result of a comparison is greater than or equal to; therefore, BCC is sometimes written as BGE (Branch if Greater than or Equal).
+This opcode takes one extra cycle if the branch is taken, and another extra cycle if a page boundary is crossed in taking the branch.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Relative</td><td>BCS hhll</td><td>B0 rr</td><td>2</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table>
+</p>
+
+<h2>Branch on Equal (BEQ)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The zero flag in the status register is tested. If it is set, meaning that the last value tested (which affected the zero flag) was zero, a branch is taken; if it is clear, meaning the value tested was non-zero, the instruction immediately following the two-byte BEQ instruction is executed. If the branch is taken, a one-byte signed displacement, fetched from the third byte of the instruction, is added to the program counter. Once the branch address has been calculated, the result is loaded into the program counter, transferring control to that location. The allowable range of the displacement is -128 to +127  <em> from the instruction immediately following the
+branch </em> .
+This opcode takes one extra cycle if the branch is taken, and another extra cycle if a page boundary is crossed in taking the branch.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Relative</td><td>BEQ hhll</td><td>F0 rr</td><td>2</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table>
+</p>
+
+<h2>Test Memory Bits against Accumulator (BIT)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+BIT sets the status register flags based on the result of two different operations. First, it sets or clears the N flag to reflect the value of the high bit (bit 7) of the data located at the effective address specified by the operand, and sets or clears the V flag to reflect the contents of the next-to-highest bit (bit 6) of the data addressed. Second, it logically ANDs the data located at the effective address with the contents of the accumulator; it changes neither value, but sets the Z flag if the result is zero, or clears it if the result is non-zero.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Immediate</td><td>BIT #nn</td><td>89 nn</td><td>2</td><td>2 </td></tr>
+<tr><td>Zero Page</td><td>BIT ZZ</td><td>24 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Zero Page, X</td><td>BIT ZZ, X</td><td>34 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Absolute</td><td>BIT hhll</td><td>2C ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, X</td><td>BIT hhll, X</td><td>3C ll hh</td><td>3</td><td>5 </td></tr>
+</tbody></table>
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>M7</td><td>M6</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table>
+</p>
+
+<h2>Branch on Minus (BMI)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The negative flag in the status register is tested. If it is set, meaning the high bit of the value which most recently affected the N flag was set, a branch is taken. Since numbers are often stored in two's complement, this instruction can be used to detect negative numbers. If it is clear, the instruction immediately following the two-byte BMI instruction is executed. If the branch is taken, a one-byte signed displacement, fetched from the third byte of the instruction, is added to the program counter. Once the branch address has been calculated, the result is loaded into the program counter, transferring control to that location. The allowable range of the displacement is -128 to +127  <em> from the instruction immediately following the
+branch </em> .
+
+This opcode takes one extra cycle if the branch is taken, and another extra cycle if a page boundary is crossed in taking the branch.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Relative</td><td>BMI hhll</td><td>30 rr</td><td>2</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Branch on Not Equal (BNE)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The zero flag in the status register is tested. If it is clear, meaning that the last value tested (which affected the zero flag) was zero, a branch is taken; if it is set, meaning the value tested was non-zero, the instruction immediately following the two-byte BNE instruction is executed. If the branch is taken, a one-byte signed displacement, fetched from the third byte of the instruction, is added to the program counter. Once the branch address has been calculated, the result is loaded into the program counter, transferring control to that location. The allowable range of the displacement is -128 to +127  <em> from the instruction immediately following the
+branch </em> .
+This opcode takes one extra cycle if the branch is taken, and another extra cycle if a page boundary is crossed in taking the branch.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Relative</td><td>BNE hhll</td><td>D0 rr</td><td>2</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Branch on Plus (BPL)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The negative flag in the status register is tested. If it is clear, meaning the high bit of the value which most recently affected the N flag was cleared, a branch is taken. Since numbers are often stored in two's complement, this instruction can be used to detect positive numbers. If it is set, the instruction immediately following the two-byte BPL instruction is executed. If the branch is taken, a one-byte signed displacement, fetched from the third byte of the instruction, is added to the program counter. Once the branch address has been calculated, the result is loaded into the program counter, transferring control to that location. The allowable range of the displacement is -128 to +127  <em> from the instruction immediately following the
+branch </em> .
+
+This opcode takes one extra cycle if the branch is taken, and another extra cycle if a page boundary is crossed in taking the branch.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Relative</td><td>BPL hhll</td><td>10 rr</td><td>2</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Branch Always (BRA)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+A branch is always taken; no testing is done. A one-byte signed displacement, fetched from the third byte of the instruction, is added to the program counter. Once the branch address has been calculated, the result is loaded into the program counter, transferring control to that location. The allowable range of the displacement is -128 to +127  <em> from the instruction immediately following the
+branch </em> .
+This branch requires one extra cycle if a page boundary is crossed in taking the branch.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Relative</td><td>BRA hhll</td><td>80 rr</td><td>2</td><td>4 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Break (BRK)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Forces a software interrupt. BRK is unaffected by the I interrupt disable
+flag. Although BRK is a one-byte instruction, the program counter (which is
+pushed onto the stack by the instruction) is incremented by two; this lets
+you follow the break instruction with a one-byte signature byte indicating
+which break caused the interrupt.  <em> Be sure to pad BRK with a single byte
+to allow an RTI (return from interrupt) instruction to execute
+correctly. </em> 
+Multiple actions are invoked on a BRK. The program counter is incremented by
+2. The high and low bytes of the program counter are pushed onto the stack
+in order, followed by the status register (P). The program counter is then
+loaded with the break vector stored at absolute address \$00FFF6-\$00FFF7.
+(Remember, the high byte is stored in \$00FFF7 and the low byte is stored in
+\$00FFF6.) The decimal flag D is cleared, and the I flag is set (to disable
+hardware IRQ interrupts) after a break is executed. Additionally, the break
+flag B in the status register value pushed onto the stack is set.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>BRK</td><td>00</td><td>1</td><td>8 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>1</td><td>0</td><td>1</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Branch to Subroutine (BSR)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Similar to the Jump to Subroutine (JSR) instruction, Branch to Subroutine allows execution of a subroutine. However, the offset is specified in relative mode instead of as an absolute address. This saves a byte, but takes one more clock cycle than JSR, so its use is discouraged. The current program counter is pushed onto the stack. A one-byte signed displacement, fetched from the second byte of the instruction, is added to the program counter. Once the subroutine address has been calculated, the result is loaded into the program counter, transferring control to that location. The allowable range of the displacement is -128 to +127  <em> from the instruction immediately following the
+BSR </em> .
+This opcode takes one extra cycle if a page boundary is crossed in calling the subroutine.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Relative</td><td>BSR hhll</td><td>44 rr</td><td>2</td><td>8 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Branch if Overflow Set (BVS)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The overflow flag V in the status register is tested. If it is set, a branch is taken; if it is clear, the instruction immediately following the two-byte BVS instruction is executed. If the branch is taken, a one-byte signed displacement, fetched from the third byte of the instruction, is added to the program counter. Once the branch address has been calculated, the result is loaded into the program counter, transferring control to that location. The allowable range of the displacement is -128 to +127  <em> from the instruction immediately following the
+branch </em> . BVS is almost exclusively used to check that a two's complement arithmetic calculation has overflowed.
+This opcode takes one extra cycle if the branch is taken, and another extra cycle if a page boundary is crossed in taking the branch.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Relative</td><td>BVS hhll</td><td>70 rr</td><td>2</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Branch if Overflow Clear (BVC)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The overflow flag V in the status register is tested. If it is clear, a branch is taken; if it is set, the instruction immediately following the two-byte BVC instruction is executed. If the branch is taken, a one-byte signed displacement, fetched from the third byte of the instruction, is added to the program counter. Once the branch address has been calculated, the result is loaded into the program counter, transferring control to that location. The allowable range of the displacement is -128 to +127  <em> from the instruction immediately following the
+branch </em> . BVC is almost exclusively used to check that a two's complement arithmetic calculation has not overflowed.
+This opcode takes one extra cycle if the branch is taken, and another extra cycle if a page boundary is crossed in taking the branch.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Relative</td><td>BVC hhll</td><td>50 rr</td><td>2</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Clear Carry Flag (CLC)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The carry flag C in the status register is set to 0.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>CLC</td><td>18</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>0 </td></tr>
+</tbody></table></p>
+
+<h2>Clear Accumulator (CLA)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The accumulator is set to \$#00.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>CLA</td><td>62</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Clear Decimal Flag (CLD)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The decimal flag D in the status register is set to 0, returning the processor to binary arithmetic mode.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>CLD</td><td>D8</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>0</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Clear Interrupt Disable Flag (CLI)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The interrupt disable flag I in the status register is set to 0. This re-enables hardware interrupt (IRQ) processing.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>CLI</td><td>58</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>0</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Clear Overflow Flag (CLV)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The overflow flag V in the status register is set to 0.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>CLV</td><td>B8</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>0</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Clear Y Register (CLY)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The Y register is set to #\$00.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>CLY</td><td>C2</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Clear X Register (CLX)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The X register is set to #\$00.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>CLX</td><td>82</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Compare X Register with Memory (CPX)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Subtract the data located at the effective address specified by the operand from the contents of the X register, setting the carry, zero, and negative flags based on the result, but without altering the contents of either the memory location or the accumulator. The comparison is of unsigned binary values only (decimal mode is ignored), and the result is not saved.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Immediate</td><td>CPX #nn</td><td>E0 nn</td><td>2</td><td>2 </td></tr>
+<tr><td>Zero Page</td><td>CPX ZZ</td><td>E4 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Absolute</td><td>CPX hhll</td><td>EC ll hh</td><td>3</td><td>5 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>C </td></tr>
+</tbody></table></p>
+
+<h2>Change Speed High (CSH)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Sets the HuC6280 to "high speed," or normal speed mode. The only use for this instruction is after a system reset, to ensure that the processor is in its high speed mode. 
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>CSH</td><td>D4</td><td>1</td><td>?? </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Change Speed Low (CSL)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Sets the HuC6280 to low speed. The only use for this instruction appears to be for the US "country check" code; it does not appear anywhere else in HuC6280 code. Its use is discouraged.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>CSL</td><td>54</td><td>1</td><td>?? </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Compare Accumulator with Memory (CMP)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Subtract the data located at the effective address specified by the operand from the contents of the accumulator, setting the carry, zero, and negative flags based on the result, but without altering the contents of either the memory location or the accumulator. The comparison is of unsigned binary values only (decimal mode is ignored), and the result is not saved.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Immediate</td><td>CMP #nn</td><td>C9 nn</td><td>2</td><td>2 </td></tr>
+<tr><td>Zero Page</td><td>CMP ZZ</td><td>C5 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Zero Page, X</td><td>CMP ZZ, X</td><td>D5 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Indirect</td><td>CMP (ZZ)</td><td>D2 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Indexed Indirect, X</td><td>CMP (ZZ, X)</td><td>C1 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Indirect Indexed, Y</td><td>CMP (ZZ), Y</td><td>D1 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Absolute</td><td>CMP hhll</td><td>CD ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, X</td><td>CMP hhll, X</td><td>DD ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, Y</td><td>CMP hhll, Y</td><td>D9 ll hh</td><td>3</td><td>5 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>C </td></tr>
+</tbody></table></p>
+
+<h2>Decrement X (DEX)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Decrement by one the contents of the X register (subtract one from the value). DEX neither affects nor is affected by the carry flag. 
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>DEX</td><td>CA</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Decrement (DEC)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Decrement by one the contents of the location specified by the operand (subtract one from the value). DEC neither affects nor is affected by the carry flag. 
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Zero Page</td><td>DEC ZZ</td><td>C6 ZZ</td><td>2</td><td>6 </td></tr>
+<tr><td>Zero Page, X</td><td>DEC ZZ, X</td><td>D6 ZZ</td><td>2</td><td>6 </td></tr>
+<tr><td>Absolute</td><td>DEC hhll</td><td>CE ll hh</td><td>3</td><td>7 </td></tr>
+<tr><td>Absolute, X</td><td>DEC hhll, X</td><td>DE ll hh</td><td>3</td><td>7 </td></tr>
+<tr><td>Accumulator</td><td>DEC A</td><td>3A</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Compare Y Register with Memory (CPY)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Subtract the data located at the effective address specified by the operand from the contents of the Y register, setting the carry, zero, and negative flags based on the result, but without altering the contents of either the memory location or the accumulator. The comparison is of unsigned binary values only (decimal mode is ignored), and the result is not saved.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Immediate</td><td>CPY #nn</td><td>C0 nn</td><td>2</td><td>2 </td></tr>
+<tr><td>Zero Page</td><td>CPY ZZ</td><td>C4 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Absolute</td><td>CPY hhll</td><td>CC ll hh</td><td>3</td><td>5 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>C </td></tr>
+</tbody></table></p>
+
+<h2>Exclusive OR Accumulator with Memory (EOR)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Bitwise logical Exclusive OR (XOR) the data located at the effective address specified by the operand with the contents of the accumulator. Each bit in the accumulator is XORed with the corresponding bit in memory, with the result being stored in the respective accumulator bit.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Immediate</td><td>EOR #nn</td><td>49 nn</td><td>2</td><td>2 </td></tr>
+<tr><td>Zero Page</td><td>EOR ZZ</td><td>45 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Zero Page, X</td><td>EOR ZZ, X</td><td>55 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Indirect</td><td>EOR (ZZ)</td><td>52 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Indexed Indirect, X</td><td>EOR (ZZ, X)</td><td>41 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Indirect Indexed, Y</td><td>EOR (ZZ), Y</td><td>51 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Absolute</td><td>EOR hhll</td><td>4D ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, X</td><td>EOR hhll, X</td><td>5D ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, Y</td><td>EOR hhll, Y</td><td>59 ll hh</td><td>3</td><td>5 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Increment (INC)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Increments contents of the location specified by the operand (add one to the value). INC neither affects nor is affected by the carry flag. 
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Zero Page</td><td>INC ZZ</td><td>E6 ZZ</td><td>2</td><td>6 </td></tr>
+<tr><td>Zero Page, X</td><td>INC ZZ, X</td><td>F6 ZZ</td><td>2</td><td>6 </td></tr>
+<tr><td>Absolute</td><td>INC hhll</td><td>EE ll hh</td><td>3</td><td>7 </td></tr>
+<tr><td>Absolute, X</td><td>INC hhll, X</td><td>FE ll hh</td><td>3</td><td>7 </td></tr>
+<tr><td>Accumulator</td><td>INC A</td><td>1A</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Increment X (INX)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Increment by one contents of the X register (add one to the value). INX neither affects nor is affected by the carry flag. 
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>INX</td><td>E8</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Decrement Y (DEY)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Decrement by one the contents of the Y register (subtract one from the value). DEY neither affects nor is affected by the carry flag. 
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>DEY</td><td>88</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Increment Y (INY)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Increment by one contents of the Y register (add one to the value). INY neither affects nor is affected by the carry flag. 
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>INY</td><td>C8</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Jump (JMP)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Transfer control to the address specified by the operand field. The program counter is loaded with the target address.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Absolute</td><td>JMP hhll</td><td>4C ll hh</td><td>3</td><td>4 </td></tr>
+<tr><td>Absolute Indirect</td><td>JMP (hhll)</td><td>6C ll hh</td><td>3</td><td>7 </td></tr>
+<tr><td>Absolute Indirect X</td><td>JMP hhll, X</td><td>7C ll hh</td><td>3</td><td>7 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Jump to Subroutine (JSR)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Transfer control to the subroutine at the location specified by the operand, after first pushing the current program counter value onto the stack as a return address. The value of the PC which is pushed onto the stack is the location of the last (third) byte of the JSR instruction,
+ <em> not </em> the address of the next opcode.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Absolute</td><td>JSR hhll</td><td>20 ll hh</td><td>3</td><td>7 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Load Accumulator from Memory (LDA)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Load the accumulator with the data located at the effective address specified by the operand.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Immediate</td><td>LDA #nn</td><td>A9 nn</td><td>2</td><td>2 </td></tr>
+<tr><td>Zero Page</td><td>LDA ZZ</td><td>A5 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Zero Page, X</td><td>LDA ZZ, X</td><td>B5 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Indirect</td><td>LDA (ZZ)</td><td>B2 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Indexed Indirect, X</td><td>LDA (ZZ, X)</td><td>A1 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Indirect Indexed, Y</td><td>LDA (ZZ), Y</td><td>B1 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Absolute</td><td>LDA hhll</td><td>AD ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, X</td><td>LDA hhll, X</td><td>BD ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, Y</td><td>LDA hhll, Y</td><td>B9 ll hh</td><td>3</td><td>5 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Load X Register from Memory (LDX)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Load the X register with the data located at the effective address specified by the operand.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Immediate</td><td>LDX #nn</td><td>A2 nn</td><td>2</td><td>2 </td></tr>
+<tr><td>Zero Page</td><td>LDX ZZ</td><td>A6 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Zero Page, Y</td><td>LDX ZZ, Y</td><td>B6 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Absolute</td><td>LDX hhll</td><td>AE ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, Y</td><td>LDX hhll, Y</td><td>BE ll hh</td><td>3</td><td>5 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Load Y Register from Memory (LDY)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Load the Y register with the data located at the effective address specified by the operand.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Immediate</td><td>LDY #nn</td><td>A0 nn</td><td>2</td><td>2 </td></tr>
+<tr><td>Zero Page</td><td>LDY ZZ</td><td>A4 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Zero Page, X</td><td>LDY ZZ, Y</td><td>B4 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Absolute</td><td>LDY hhll</td><td>AC ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, X</td><td>LDY hhll, Y</td><td>BC ll hh</td><td>3</td><td>5 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Logical Shift Memory or Accumulator Right (LSR)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Logical shift the contents of the location specified by the operand right one bit. That is, bit zero takes on the value originally found in bit one, bit one takes the value originally in bit two, and so on; bit 7 is cleared; bit 0 is transferred into the carry flag. The arithmetic result of the operation is an unsigned division by two.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Zero Page</td><td>LSR ZZ</td><td>46 ZZ</td><td>2</td><td>6 </td></tr>
+<tr><td>Zero Page, X</td><td>LSR ZZ, X</td><td>56 ZZ</td><td>2</td><td>6 </td></tr>
+<tr><td>Absolute</td><td>LSR hhll</td><td>4E ll hh</td><td>3</td><td>7 </td></tr>
+<tr><td>Absolute, X</td><td>LSR hhll, X</td><td>5E ll hh</td><td>3</td><td>7 </td></tr>
+<tr><td>Accumulator</td><td>LSR A</td><td>4A ll hh</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>0</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>C </td></tr>
+</tbody></table></p>
+
+<h2>Or Accumulator with Memory (ORA)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Bitwise logical OR the data located at the effective address specified by the operand with the contents of the accumulator. Each bit in the accumulator is ORed with the corresponding bit in memory, with the result being stored in the respective accumulator bit.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Immediate</td><td>ORA #nn</td><td>09 nn</td><td>2</td><td>2 </td></tr>
+<tr><td>Zero Page</td><td>ORA ZZ</td><td>05 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Zero Page, X</td><td>ORA ZZ, X</td><td>15 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Indirect</td><td>ORA (ZZ)</td><td>12 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Indexed Indirect, X</td><td>ORA (ZZ, X)</td><td>01 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Indirect Indexed, Y</td><td>ORA (ZZ), Y</td><td>11 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Absolute</td><td>ORA hhll</td><td>0D ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, X</td><td>ORA hhll, X</td><td>1D ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, Y</td><td>ORA hhll, Y</td><td>19 ll hh</td><td>3</td><td>5 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>No Operation (NOP)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+NOP performs no action, and is often used for timing loops or temporarily removing certain instructions.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>NOP</td><td>EA</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Push Accumulator (PHA)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Push the accumulator onto the stack.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Stack Push</td><td>PHA</td><td>48</td><td>1</td><td>3 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Push Processor Status Register (PHP)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Push the process status register P onto the stack.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Stack Push</td><td>PHP</td><td>08</td><td>1</td><td>3 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Push X Register (PHX)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Push the X register onto the stack.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Stack Push</td><td>PHX</td><td>DA</td><td>1</td><td>3 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Push Y Register (PHY)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Push the Y register onto the stack.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Stack Push</td><td>PHY</td><td>5A</td><td>1</td><td>3 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Pull Accumulator (PLA)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Pull the value on the top of the stack into the accumulator. The previous contents of the accumulator are destroyed.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Stack Pull</td><td>PLA</td><td>68</td><td>1</td><td>4 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Pull Processor Status Register (PLP)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Pull the value on the top of the stack into the processor status register P. The previous contents of the status register are destroyed.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Stack Pull</td><td>PLP</td><td>28</td><td>1</td><td>4 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td></td><td colspan="8">Restored </td></tr>
+</tbody></table></p>
+
+<h2>Pull X Register (PLX)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Pull the value on the top of the stack into the X register. The previous contents of the X register are destroyed.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Stack Pull</td><td>PLX</td><td>FA</td><td>1</td><td>4 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Pull Y Register (PLY)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Pull the value on the top of the stack into the Y register. The previous contents of the Y register are destroyed.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Stack Pull</td><td>PLY</td><td>7A</td><td>1</td><td>4 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Rotate Memory or Accumulator Left (ROL)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Rotate the contents of the location specified by the operand left one bit. That is, bit one takes on the value originally found in bit zero, bit two takes the value originally in bit one, and so on; bit 0 takes on the value in the carry flag; bit 7 is transferred into the carry.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Zero Page</td><td>ROL ZZ</td><td>26 ZZ</td><td>2</td><td>6 </td></tr>
+<tr><td>Zero Page, X</td><td>ROL ZZ, X</td><td>36 ZZ</td><td>2</td><td>6 </td></tr>
+<tr><td>Absolute</td><td>ROL hhll</td><td>2E ll hh</td><td>3</td><td>7 </td></tr>
+<tr><td>Absolute, X</td><td>ROL hhll, X</td><td>3E ll hh</td><td>3</td><td>7 </td></tr>
+<tr><td>Accumulator</td><td>ROL A</td><td>2A ll hh</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>C </td></tr>
+</tbody></table></p>
+
+<h2>Reset Memory Bit i (RMBi)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Clear the specified bit in the zero page memory location specified in the operand. The bit to clear is specified by a number concatenated to the end of the mnemonic, resulting in 8 distinct Opcodes.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Zero page</td><td>RMB0 ZZ</td><td>07 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Zero page</td><td>RMB1 ZZ</td><td>17 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Zero page</td><td>RMB2 ZZ</td><td>27 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Zero page</td><td>RMB3 ZZ</td><td>37 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Zero page</td><td>RMB4 ZZ</td><td>47 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Zero page</td><td>RMB5 ZZ</td><td>57 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Zero page</td><td>RMB6 ZZ</td><td>67 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Zero page</td><td>RMB7 ZZ</td><td>77 ZZ</td><td>2</td><td>7 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Rotate Memory or Accumulator Right (ROR)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Rotate the contents of the location specified by the operand right one bit. That is, bit zero takes on the value originally found in bit one, bit one takes the value originally in bit two, and so on; bit 7 takes on the value in the carry flag; bit 0 is transferred into the carry.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Zero Page</td><td>ROR ZZ</td><td>66 ZZ</td><td>2</td><td>6 </td></tr>
+<tr><td>Zero Page, X</td><td>ROR ZZ, X</td><td>76 ZZ</td><td>2</td><td>6 </td></tr>
+<tr><td>Absolute</td><td>ROR hhll</td><td>6E ll hh</td><td>3</td><td>7 </td></tr>
+<tr><td>Absolute, X</td><td>ROR hhll, X</td><td>7E ll hh</td><td>3</td><td>7 </td></tr>
+<tr><td>Accumulator</td><td>ROR A</td><td>6A ll hh</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>C </td></tr>
+</tbody></table></p>
+
+<h2>Return from Interrupt (RTI)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Pull the status register and the program counter from the stack in order. Normally used to return from an interrupt call (such as BRK), this instruction can also be used to pull the status register P, and the program counter low and high bytes from the stack into the P and program counter registers.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Stack (RTI)</td><td>RTI</td><td>40</td><td>1</td><td>7 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td></td><td colspan="8">Restored </td></tr>
+</tbody></table></p>
+
+<h2>Return from Subroutine (RTS)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Pull the program counter from the stack, incrementing the 16-bit value by one before loading the program counter with it. The low byte of the program counter is pulled from the stack first, followed by the high byte.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Stack (RTS)</td><td>RTS</td><td>60</td><td>1</td><td>7 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Swap Accumulator and X Register (SAX)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The values of the accumulator and the X Register are swapped.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>SAX</td><td>22</td><td>1</td><td>3 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Swap Accumulator and Y Register (SAY)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The values of the accumulator and the Y Register are swapped.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>SAY</td><td>42</td><td>1</td><td>3 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Subtract with Borrow from Accumulator (SBC)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Subtract the data located at the effective address specified by the operand to the contents of the accumulator. Subtract one more from the result if the carry flag is set, and store the final result in the accumulator. This opcode takes one extra cycle if the decimal mode flag D is set.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Immediate</td><td>SBC #nn</td><td>E9 nn</td><td>2</td><td>2 </td></tr>
+<tr><td>Zero Page</td><td>SBC ZZ</td><td>E5 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Zero Page, X</td><td>SBC ZZ, X</td><td>F5 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Indirect</td><td>SBC (ZZ)</td><td>F2 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Indexed Indirect, X</td><td>SBC (ZZ, X)</td><td>E1 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Indirect Indexed, Y</td><td>SBC (ZZ), Y</td><td>F1 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Absolute</td><td>SBC hhll</td><td>ED ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, X</td><td>SBC hhll, X</td><td>FD ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, Y</td><td>SBC hhll, Y</td><td>F9 ll hh</td><td>3</td><td>5 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>V</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>C </td></tr>
+</tbody></table></p>
+
+<h2>Set Decimal Mode Flag (SED)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The decimal mode flag D in the status register is set to 1. This enables BCD arithmetic.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>SED</td><td>F8</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>1</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Set Carry Flag (SEC)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The carry flag C in the status register is set to 1.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>SEC</td><td>38</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>1 </td></tr>
+</tbody></table></p>
+
+<h2>Set Interrupt Disable Flag (SEI)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The interrupt disable flag I in the status register is set to 1. This disables hardware interrupt processing.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>SEI</td><td>78</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>1</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Set T Flag (SET)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The T flag in the status register is set to 1. The T flag is called the "Memory Operation Flag;", when this flag is set all the instructions that normally use the A register act differently, I don't know exactly if all the instructions are affected but I'm sure for AND, EOR, OR
+&amp; ADC. In place of using the A register the instruction use the memory location in ZP pointed by the X register, so for example if you use SET followed by ADC #10, the CPU will do ZP[X] = ZP[X] + 10.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>SET</td><td>F4</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Store HuC6270 No. 0 (ST0)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The immediate argument is stored in the HuC6270's address register. This command is equivalent to storing the immediate argument in \$1FE000.
+The HuC6270 "No. 0" register is also known as the HuC6270 Address/Status Register; more information is available in the HuC6270 summary. According to the  <em> Develo
+Book </em> , this operation sets /CE7, A1, and A0 to logical LOW.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>ST0 #nn</td><td>03 nn</td><td>2</td><td>4 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Store HuC6270 No. 1 (ST1)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The immediate argument is stored in the HuC6270's low data register. This command is equivalent to storing the immediate argument in \$1FE002.
+The HuC6270 "No. 1" register is also known as the HuC6270 Low Data Register; more information is available in the HuC6270 summary. According to the  <em> Develo
+Book </em> , this operation sets /CE7 and A0 to logical LOW, while setting A1 to logical HIGH.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>ST1 #nn</td><td>13 nn</td><td>2</td><td>4 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Store HuC6270 No. 2 (ST2)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+The immediate argument is stored in the HuC6270's high data register. This command is equivalent to storing the immediate argument in \$1FE003.
+The HuC6270 "No. 2" register is also known as the HuC6270 High Data Register; more information is available in the HuC6270 summary. According to the  <em> Develo
+Book </em> , this operation sets /CE7 to logical LOW, while setting A0 and A1 to logical HIGH.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>ST2 #nn</td><td>23 nn</td><td>2</td><td>4 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Set Memory Bit i (SMBi)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Set the specified bit in the zero page memory location specified in the operand. The bit to clear is specified by a number concatenated to the end of the mnemonic, resulting in 8 distinct Opcodes.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Zero page</td><td>SMB0 ZZ</td><td>87 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Zero page</td><td>SMB1 ZZ</td><td>97 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Zero page</td><td>SMB2 ZZ</td><td>A7 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Zero page</td><td>SMB3 ZZ</td><td>B7 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Zero page</td><td>SMB4 ZZ</td><td>C7 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Zero page</td><td>SMB5 ZZ</td><td>D7 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Zero page</td><td>SMB6 ZZ</td><td>E7 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Zero page</td><td>SMB7 ZZ</td><td>F7 ZZ</td><td>2</td><td>7 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Store Accumulator to Memory (STA)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Stores the value in the accumulator to the effective address specified by the operand.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Zero Page</td><td>STA ZZ</td><td>85 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Zero Page, X</td><td>STA ZZ, X</td><td>95 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Indirect</td><td>STA (ZZ)</td><td>92 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Indexed Indirect, X</td><td>STA (ZZ, X)</td><td>81 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Indirect Indexed, Y</td><td>STA (ZZ), Y</td><td>91 ZZ</td><td>2</td><td>7 </td></tr>
+<tr><td>Absolute</td><td>STA hhll</td><td>8D ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, X</td><td>STA hhll, X</td><td>9D ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, Y</td><td>STA hhll, Y</td><td>99 ll hh</td><td>3</td><td>5 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Store X Register to Memory (STX)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Store the value in the X register to the effective address specified by the operand.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Zero Page</td><td>STX ZZ</td><td>86 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Zero Page, Y</td><td>STX ZZ, Y</td><td>96 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Absolute</td><td>STX hhll</td><td>8E ll hh</td><td>3</td><td>5 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Store Y Register to Memory (STY)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Store the value in the Y register to the effective address specified by the operand.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Zero Page</td><td>STY ZZ</td><td>84 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Zero Page, X</td><td>STY ZZ, X</td><td>94 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Absolute</td><td>STY hhll</td><td>8C ll hh</td><td>3</td><td>5 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Store Zero to Memory (STZ)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Store the value #\$00 to the effective address specified by the operand. Very useful for initialising memory.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Zero Page</td><td>STZ ZZ</td><td>64 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Zero Page, X</td><td>STZ ZZ, X</td><td>74 ZZ</td><td>2</td><td>4 </td></tr>
+<tr><td>Absolute</td><td>STZ hhll</td><td>9C ll hh</td><td>3</td><td>5 </td></tr>
+<tr><td>Absolute, X</td><td>STZ hhll, X</td><td>9E ll hh</td><td>3</td><td>5 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Transfer Alternate Increment (TAI)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Execute a memory move where the source address alternates between two addresses, and the destination address increments with each loop cycle. This is an extremely powerful instruction, mainly used for transferring data from the special video memory (e.g., backgrounds, etc.) to the main memory. 
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Block Move</td><td>TAI SHSL,DHDL, LHLL</td><td>F3 SL SH DL DH LL LH</td><td>7</td><td>17 + 6x </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Swap X and Y Registers (SXY)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Swaps the values stored in the X and Y registers.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>SXY</td><td>02</td><td>1</td><td>3 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Transfer Accumulator to MPRi (TAMi)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Loads Memory Mapping Register i with the value in the accumulator. More about the MPR registers can be found in the Memory Mapping summary. It is possible to load more than one MPR at a time by setting more than one bit in the immediate argument to TAM.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>TAMi (TAM #nn)</td><td>53 ($2^i$)</td><td>2</td><td>5 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Transfer Accumulator to X Register (TAX)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Transfer the value in the accumulator to register X.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>TAX</td><td>AA</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Transfer Accumulator to Y Register (TAY)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Transfer the value in the accumulator to register Y.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>TAY</td><td>A8</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Transfer Increment Alternate (TIA)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Execute a memory move where the source address increments, and the destination address alternates between two addresses with each loop cycle. This is an extremely powerful instruction, mainly used for transferring data to the special video memory (e.g., backgrounds, etc.) from the main memory. 
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Block Move</td><td>TIA SHSL,DHDL, LHLL</td><td>E3 SL SH DL DH LL LH</td><td>7</td><td>17 + 6x </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Transfer Decrement Decrement (TDD)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Execute a memory move where the source and destination addresses decrement with each loop cycle. This is an extremely powerful instruction, mainly used for copying and moving data around in main memory. 
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Block Move</td><td>TDD SHSL,DHDL, LHLL</td><td>C3 SL SH DL DH LL LH</td><td>7</td><td>17 + 6x </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Transfer Increment None (TIN)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Execute a memory move where the source address increments with each loop cycle. This is an extremely powerful instruction, mainly used for transferring data from the special video memory (e.g., backgrounds, etc.) to the main memory.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Block Move</td><td>TIN SHSL,DHDL, LHLL</td><td>D3 SL SH DL DH LL LH</td><td>7</td><td>17 + 6x </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Transfer Increment Increment (TII)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Execute a memory move where the source and destination addresses increment with each loop cycle. This is an extremely powerful instruction, mainly used for copying and moving blocks of data around in main memory.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Block Move</td><td>TII SHSL,DHDL, LHLL</td><td>73 SL SH DL DH LL LH</td><td>7</td><td>17 + 6x </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Transfer MPRi to Accumulator (TMAi)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Transfers the value in Memory Mapping Register i to the accumulator. More information about the MPRs can be found on the Memory Mapping summary. Only one bit in the immediate argument can be set to 1.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>TMAi (TMA #nn)</td><td>43 ($2^i$)</td><td>2</td><td>4 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Test and Reset Memory Bits Against Accumulator (TRB)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Logically AND together the  <em> complement </em> of the value in the accumulator with the data at the effective address specified by the operand. Store the result at the memory location. This clears each bit for which the corresponding accumulator bit is set, making it an ideal opcode for masking data. N and V and Z are set as in the BIT opcode instruction. These flags are set based on the ANDing of the
+ <em> uncomplemented </em>  accumulator value with the memory value.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Zero Page</td><td>TRB ZZ</td><td>14 ZZ</td><td>2</td><td>6 </td></tr>
+<tr><td>Absolute</td><td>TRB hhll</td><td>1C ll hh</td><td>3</td><td>7 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>M7</td><td>M6</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Test and Set Memory Bits Against Accumulator (TSB)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Logically OR together the value in the accumulator with the data at the effective address specified by the operand. Store the result at the memory location. This sets each bit for which the corresponding accumulator bit is set, making it an ideal opcode for masking data. N and V and Z are set as in the BIT opcode instruction. These flags are set based on the ANDing of the accumulator value with the memory value.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Zero Page</td><td>TSB ZZ</td><td>04 ZZ</td><td>2</td><td>6 </td></tr>
+<tr><td>Absolute</td><td>TSB hhll</td><td>0C ll hh</td><td>3</td><td>7 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>M7</td><td>M6</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Test and Reset Memory Bits (TST)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Logically AND together the immediate operand with the data at the effective
+address specified by the operand.  This sets each bit for which the
+corresponding immediate argument bit is set, making it an ideal opcode for
+masking data. N and V and Z are set as in the BIT opcode instruction.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Imm. Zero Page</td><td>TST #nn, ZZ</td><td>83 nn ZZ</td><td>3</td><td>7 </td></tr>
+<tr><td>Imm. Zero Page, X</td><td>TST #nn, ZZ, X</td><td>A3 nn ZZ</td><td>3</td><td>7 </td></tr>
+<tr><td>Immediate Absolute</td><td>TST #nn, hhll</td><td>93 nn ll hh</td><td>4</td><td>8 </td></tr>
+<tr><td>Imm. Absolute, X</td><td>TST #nn, hhll, X</td><td>B3 nn ll hh</td><td>4</td><td>8 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>M7</td><td>M6</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Transfer Stack Pointer to X Register (TSX)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Transfer the value in the stack pointer S to the X register. The value of the stack pointer is not changed.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>TSX</td><td>BA</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Transfer X Register to Accumulator (TXA)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Transfer the value in the X register to the accumulator. The value of the X register is not changed.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>TXA</td><td>8A</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table>
+
+</p><p> <em> Function </em> 
+
+Transfer the value in the Y register to the accumulator. The value of the Y register is not changed.
+
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>TYA</td><td>98</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>N</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>Z</td><td>- </td></tr>
+</tbody></table></p>
+
+<h2>Transfer X Register to Stack Pointer (TXS)</h2>
+<p>
+</p><p> <em> Function </em> 
+
+Transfer the value in the X register to the stack pointer. The value of the X register is not changed.
+</p><p> <em> Adressing Modes &amp; Opcodes </em> 
+
+<table>
+<tbody><tr><td>Addressing Mode</td><td>Syntax</td><td>Opcode</td><td># of bytes</td><td># of cycles </td></tr>
+<tr><td>Implied</td><td>TXS</td><td>9A</td><td>1</td><td>2 </td></tr>
+</tbody></table>
+
+</p><p> <em> Flags Affected </em> 
+
+<table>
+<tbody><tr><td>N</td><td>V</td><td>T</td><td>B</td><td>D</td><td>I</td><td>Z</td><td>C </td></tr>
+<tr><td>-</td><td>-</td><td>0</td><td>-</td><td>-</td><td>-</td><td>-</td><td>- </td></tr>
+</tbody></table>
+</p>
+
+
+
+
+</body></html>
