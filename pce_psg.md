@@ -19,23 +19,25 @@ Alternatively, each channel can be individually switched to "Direct D/A" mode wh
 
 __PSG registers :__
 
-| **Channel select**||||
-| --- | --- | --- | --- |
+| **Channel select**||
+| --- | --- |
 | `$0800` | ` /W` | bit 7-3 : | (unused) |
 | bit 2-0 : | Channel number (only 0-5 valid) |
 
 This selects the channel used for operations on registers `$0802` to `$0807`. Be aware that the noise register is only valid for channels 4 and 5, and that the LFO registers will affect channels 0 and 1 only, irrespective of what values you set here.
 
-| **Global sound balance** |     |     |     |
-| --- | --- | --- | --- |
-| `$0801` | ` /W` | bit 7-4 : | Volume from left output |
+| **Global sound balance** |     |
+| --- | --- |
+| `$0801` | ` /W` 
+| bit 7-4 : | Volume from left output |
 | bit 3-0 : | Volume from right output |
 
 This alters the overall sound volume once all the channels have been mixed together.
 
-| **Fine frequency adjust** |     |     |     |
-| --- | --- | --- | --- |
-| `$0802` | ` /W` | bit 7-0 : | The lower 8 bits of the 12 bit channel frequency |
+| **Fine frequency adjust** |     |
+| --- | --- | 
+| `$0802` | ` /W` 
+| bit 7-0 : | The lower 8 bits of the 12 bit channel frequency |
 
 The channel frequency is a 12 bit value used as a divider into the 3.58MHz clock. The exact use depends on what type of sound the channel is being used for at the time. For waveform output, a copy of this value is, in effect, decremented 3,580,000 times a second until zero is reached. When this happens the PSG advances an internal pointer into the channel's waveform buffer by one. Since the buffer is 32 bytes long, this frequency value can be converted into more familiar units as follows :
 ```
