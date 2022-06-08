@@ -117,7 +117,17 @@ make
 sudo make install
 ```
 
-이렇게 해서 zlib.h를 설치한후 
+update
+
+```
+wget https://zlib.net/zlib-1.2.12.tar.xz
+./configure
+make
+make install
+ln /usr/local/lib/libz.a /usr/lib -s
+```
+
+이렇게 해서 zlib.h를 설치한후 계속 진행하자..
 
 ***
 
