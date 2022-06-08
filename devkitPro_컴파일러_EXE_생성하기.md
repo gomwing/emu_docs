@@ -1,9 +1,9 @@
+ï»¿
 
-
-windows bash ¿¡¼­ devkitARM ºôµåÇÏ±â
+windows bash ì—ì„œ devkitARM ë¹Œë“œí•˜ê¸°
 =================================
 
-¸Å´º¾ó´ë·Î ÇÏ°í³­ÈÄ bash shell ¿¡¼­ mingw32¸¦ ¼³Ä¡ÇØ¼­ windows ¿ë binary¸¦ »ı¼ºÇØ¾ß ÇÑ´Ù.
+ë§¤ë‰´ì–¼ëŒ€ë¡œ í•˜ê³ ë‚œí›„ bash shell ì—ì„œ mingw32ë¥¼ ì„¤ì¹˜í•´ì„œ windows ìš© binaryë¥¼ ìƒì„±í•´ì•¼ í•œë‹¤.
 
 https://marc.xn--wckerlin-0za.ch/computer/cross-compile-on-ubuntu-linux-for-windows-using-mingw
 
@@ -11,7 +11,38 @@ https://marc.xn--wckerlin-0za.ch/computer/cross-compile-on-ubuntu-linux-for-wind
 sudo apt-get install mingw-w64
 ~~~
 
-ÀÌ»óÅÂ¿¡¼­´Â mingw-w64¿¡´Â gcc¿¡ ÇÊ¿äÇÑ 3°³ÀÇ ¶óÀÌºê·¯¸®°¡ ¾ø´Ù.
+ì´ìƒíƒœì—ì„œëŠ” mingw-w64ì—ëŠ” gccì— í•„ìš”í•œ 3ê°œì˜ ë¼ì´ë¸ŒëŸ¬ë¦¬ê°€ ì—†ë‹¤.
+
+MSYS2 mintty shell ì—ì„œ ì‘ì—…í•˜ê¸°ë¡œ ì¶”ê°€í•¨.. 2022.6.8
+
+~~~
+GMP
+---
+URL : https://gmplib.org/
+ë‚´ê°€ ì„¤ì¹˜í•œ URL : https://gmplib.org/download/gmp/gmp-6.1.1.tar.bz2
+ì••ì¶• í•´ì œtar -xvf mpfr-3.1.5.tar.gzì••ì¶• í•´ì œ í›„Â $ 
+./configure
+make install
+
+MPFR
+----
+URL :Â http://www.mpfr.org/mpfr-current/
+ë‚´ê°€ ë°›ì€ URL : http://www.mpfr.org/mpfr-current/mpfr-3.1.5.tar.gz
+ì••ì¶• í•´ì œtar -xvf mpfr-3.1.5.tar.gz
+ì••ì¶• í•´ì œ í›„Â $ ./configure --enable-static --disable-share
+dmake install
+
+MPC
+---
+URL :Â http://www.multiprecision.org/index.php?prog=mpc&page=download
+ë‚´ê°€ ë°›ì€ URL :Â ftp://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz
+ì••ì¶• í•´ì œtar -xvf mpfr-3.1.5.tar.gz
+ì••ì¶• í•´ì œ í›„Â $ ./configure --enable-static --disable-shared
+make install
+
+~~~
+
+~~
 
 GMP
 ---
@@ -20,7 +51,7 @@ wget https://gmplib.org/download/gmp/gmp-6.1.2.tar.bz2
 ./configure  --host=x86_64-w64-mingw32 --prefix=/usr/x86_64-w64-mingw32/
 make
 sudo make install
-<<- ÀÌ°Å ÇØ Áà¾ß gmp.h °¡ x86_64-w64-mingw32 ÀÇ include¿¡ µé¾î°£´Ù.
+<<- ì´ê±° í•´ ì¤˜ì•¼ gmp.h ê°€ x86_64-w64-mingw32 ì˜ includeì— ë“¤ì–´ê°„ë‹¤.
 ~~~
 
 MPFR
@@ -32,6 +63,17 @@ make
 sudo make install
 ~~~
 
+update
+
+~~~
+wget https://www.mpfr.org/mpfr-current/mpfr-4.1.0.tar.bz2
+./configure  --host=x86_64-w64-mingw32 --prefix=/usr/x86_64-w64-mingw32/ --enable-static --disable-shared \
+--with-gmp-include=/usr/x86_64-w64-mingw32/include/ --with-gmp-lib=/usr/x86_64-w64-mingw32/lib
+make
+sudo make install
+~~~
+
+
 MPC
 ---
 
@@ -41,12 +83,12 @@ wget https://ftp.gnu.org/gnu/mpc/mpc-1.1.0.tar.gz
 make
 sudo make install
 ~~~
-
-ÀÌ·¸°Ô 3°³¸¦ ¼³Ä¡ÇÑ ÈÄ 
+~~
+ì´ë ‡ê²Œ 3ê°œë¥¼ ì„¤ì¹˜í•œ í›„ 
 
 cross-build-x86_64-w64-mingw32.sh 
 
-¸¦
+ë¥¼
 
 
 ~~~
@@ -58,15 +100,15 @@ export CROSSBINPATH=/usr/bin
 ~~~
 
 
-ÀÌ·¸°Ô °íÄ¡°í. ÄÄÆÄÀÏ ÇÏ´Ï ¾ÈµÇ¾ú´Ù. ¤Ğ.¤Ğ
+ì´ë ‡ê²Œ ê³ ì¹˜ê³ . ì»´íŒŒì¼ í•˜ë‹ˆ ì•ˆë˜ì—ˆë‹¤. ã… .ã… 
 
-ÀÌ°Ô ¾ø¾î¼­.. zlib
+ì´ê²Œ ì—†ì–´ì„œ.. zlib
 
 ZLIB 
 ----
-### Å©·Î½º ÄÄÆÄÀÏÀ» À§ÇØ¼­ ÇÒÀÏ  
+### í¬ë¡œìŠ¤ ì»´íŒŒì¼ì„ ìœ„í•´ì„œ í• ì¼  
 
-¿À·¡µÈ ¶óÀÌºê·¯¸®¶ó¼­ ±×·±Áö --host= ÀÇ ±¸¹®Àº ¾È¸Ô´Â´Ù 
+ì˜¤ë˜ëœ ë¼ì´ë¸ŒëŸ¬ë¦¬ë¼ì„œ ê·¸ëŸ°ì§€ --host= ì˜ êµ¬ë¬¸ì€ ì•ˆë¨¹ëŠ”ë‹¤ 
 
 ```
 wget https://zlib.net/zlib-1.2.11.tar.xz
@@ -75,64 +117,64 @@ make
 sudo make install
 ```
 
-ÀÌ·¸°Ô ÇØ¼­ zlib.h¸¦ ¼³Ä¡ÇÑÈÄ 
+ì´ë ‡ê²Œ í•´ì„œ zlib.hë¥¼ ì„¤ì¹˜í•œí›„ 
 
 ***
 
-~~¾Æ·¡ÀÇ ¹æ¹ıÀº ÀÎÅÍ³İ¿¡ ³ª¿ÍÀÖ´Â°ÍÀÎµ¥ bash shell ¿¡¼­´Â ¾ÈµÈ´Ù. 
-¾ÈµÇ¹Ç·Î ¾²Áö¸»ÀÚ.
-À§¿¡°ÍÀº ¾ÈµÈ´Ù-> ¾Æ´Ï´Ù À§ÀÇ ¹æ¹ıÀ¸·Î µÈ´Ù.. zlib³»ÀÇ win32/Makefile.gcc¸¦ ¼öÁ¤ÇØ¾ß ÇÑ´Ù.
+~~ì•„ë˜ì˜ ë°©ë²•ì€ ì¸í„°ë„·ì— ë‚˜ì™€ìˆëŠ”ê²ƒì¸ë° bash shell ì—ì„œëŠ” ì•ˆëœë‹¤. 
+ì•ˆë˜ë¯€ë¡œ ì“°ì§€ë§ì.
+ìœ„ì—ê²ƒì€ ì•ˆëœë‹¤-> ì•„ë‹ˆë‹¤ ìœ„ì˜ ë°©ë²•ìœ¼ë¡œ ëœë‹¤.. zlibë‚´ì˜ win32/Makefile.gccë¥¼ ìˆ˜ì •í•´ì•¼ í•œë‹¤.
 PREFIX =  
-ÀÌ·¸°Ô µÈ °÷À»
+ì´ë ‡ê²Œ ëœ ê³³ì„
 PREFIX = x86_64-w64-mingw32-
-ÀÌ·¸°Ô ¹Ù²ÛÈÄ
+ì´ë ‡ê²Œ ë°”ê¾¼í›„
 make -f win32/Makefile.gcc BINARY_PATH=/usr/bin INCLUDE_PATH=/usr/x86_64-w64-mingw32/include LIBRARY_PATH=/usr/x86_64-w64-mingw32/lib install
-·Î ºôµåÇÑµÚ¿¡ ¶óÀÌºê·¯¸® ÀÎ½ºÅç~~
+ë¡œ ë¹Œë“œí•œë’¤ì— ë¼ì´ë¸ŒëŸ¬ë¦¬ ì¸ìŠ¤í†¨~~
 
 ***
-µåµğ¾î ÄÄÆÄÀÏ
+ë“œë””ì–´ ì»´íŒŒì¼
 ===
 
 ```
 . cross-build-x86_64-w64-mingw32.sh 
 ```
 
-<- ÇöÀçÀÇ ½ºÅ©¸³Æ®¸¦ sub envioment°¡ ¾Æ´Ñ ÇöÀçÀÇ enviroment¿¡ ¹İ¿µÇÏ°Ô ÇÑÈÄ
+<- í˜„ì¬ì˜ ìŠ¤í¬ë¦½íŠ¸ë¥¼ sub enviomentê°€ ì•„ë‹Œ í˜„ì¬ì˜ enviromentì— ë°˜ì˜í•˜ê²Œ í•œí›„
 
 ~~~
-./build-devkit.sh·Î ºôµå½ÃÀÛÇÏ¸é µÊ!!!
+./build-devkit.shë¡œ ë¹Œë“œì‹œì‘í•˜ë©´ ë¨!!!
 ~~~
 
-¿©±â¼­ ÀÎ½ºÅç µğ·ºÅä¸®¿¡ `:` °¡ ÀÖÀ¸¸é ¿¡·¯°¡ ³ª¹Ç·Î 
+ì—¬ê¸°ì„œ ì¸ìŠ¤í†¨ ë””ë ‰í† ë¦¬ì— `:` ê°€ ìˆìœ¼ë©´ ì—ëŸ¬ê°€ ë‚˜ë¯€ë¡œ 
 
 ```
 Please enter the directory where you would like 'devkitARM' to be installed:
 for mingw/msys you must use <drive>:/<install path> or you will have include path problems
 this is the top level directory for devkitpro, i.e. e:/devkitPro
 ```
-¿ä ¹®±¸°¡ ³ª¿À¸é 
+ìš” ë¬¸êµ¬ê°€ ë‚˜ì˜¤ë©´ 
 
 ```
 /f/_DEVELOP_/devkitPro 
 ```
-ÀÌ·¸°Ô ÇØ Áà¾ß ÇÑ´Ù.
+ì´ë ‡ê²Œ í•´ ì¤˜ì•¼ í•œë‹¤.
 
-Ãß°¡ÀÛ¾÷
+ì¶”ê°€ì‘ì—…
 ---
 
-### 1. gp32-tools ºôµå ¿¡·¯ ¾È³ª°Ô ÇÏ·Á¸é 
+### 1. gp32-tools ë¹Œë“œ ì—ëŸ¬ ì•ˆë‚˜ê²Œ í•˜ë ¤ë©´ 
 
 ```
 sudo apt-get install pkg-config
 pkg-config zlib --libs
 ```
 
-### 2. dfu-util ºôµå ¿¡·¯ ¾È³ª°Ô ÇÏ·Á¸é 
+### 2. dfu-util ë¹Œë“œ ì—ëŸ¬ ì•ˆë‚˜ê²Œ í•˜ë ¤ë©´ 
 ```
 sudo apt-get install libusb-1.0.0
 ```
 
-### 3. 3dstools ºôµå ¿¡·¯ ¾È³ª°Ô ÇÏ·Á¸é 
+### 3. 3dstools ë¹Œë“œ ì—ëŸ¬ ì•ˆë‚˜ê²Œ í•˜ë ¤ë©´ 
 
 ~~sudo apt-get install libgraphicsmagick1-dev~~    
 ``` 
@@ -141,16 +183,16 @@ sudo apt-get install libmagick++-dev
 
 
 ***
-»ç½ÇÀº ÄÄÆÄÀÏÀ» ¾ÈÇØµµ µÇ´Â °ÍÀÌ¾ú´Ù ~!~~!
+ì‚¬ì‹¤ì€ ì»´íŒŒì¼ì„ ì•ˆí•´ë„ ë˜ëŠ” ê²ƒì´ì—ˆë‹¤ ~!~~!
 ===
 
-gccµµ ÆĞÄ¡ÇØ º¸°í binutilµµ ÆĞÄ¡¸¦ ÇØ¼­ thumb -> arm ½ÇÇà½Ã BLX ÄÚµå°¡ »ı¼ºµÇ°Ô ÇØ º¸¾Ò´Âµ¥ 
+gccë„ íŒ¨ì¹˜í•´ ë³´ê³  binutilë„ íŒ¨ì¹˜ë¥¼ í•´ì„œ thumb -> arm ì‹¤í–‰ì‹œ BLX ì½”ë“œê°€ ìƒì„±ë˜ê²Œ í•´ ë³´ì•˜ëŠ”ë° 
 
-»ç½ÇÀº arm-none-eabi-gcc °¡ ld¸¦ È£ÃâÇÒ¶§ ds_arm9.specs¸¦ ÀĞ¾î µéÀÌ´Âµ¥ ¿©±â¿¡ ¸µÄ¿ ¿É¼ÇÀ» Ãß°¡ÇØ ÁÖ¸é µÇ´Â °ÍÀÌ¾ú´Ù.. ¤Ñ,.¤Ñ
+ì‚¬ì‹¤ì€ arm-none-eabi-gcc ê°€ ldë¥¼ í˜¸ì¶œí• ë•Œ ds_arm9.specsë¥¼ ì½ì–´ ë“¤ì´ëŠ”ë° ì—¬ê¸°ì— ë§ì»¤ ì˜µì…˜ì„ ì¶”ê°€í•´ ì£¼ë©´ ë˜ëŠ” ê²ƒì´ì—ˆë‹¤.. ã…¡,.ã…¡
 
-Áï,
+ì¦‰,
 
-ds_arm9.specs ´Â ÀÌ·¸°Ô µÇ¾î ÀÖ´Âµ¥ 
+ds_arm9.specs ëŠ” ì´ë ‡ê²Œ ë˜ì–´ ìˆëŠ”ë° 
 
 ```
 %rename link                old_link
@@ -163,7 +205,7 @@ ds_arm9_crt0%O%s crti%O%s crtbegin%O%s
 
 ```
 
-ÀÌ°ÍÀ» 
+ì´ê²ƒì„ 
 
 ```
 %rename link                old_link
@@ -176,10 +218,10 @@ ds_arm9_crt0%O%s crti%O%s crtbegin%O%s
 
 ```
 
-ÀÌ·¸°Ô --no-fix-arm1176 ¿É¼ÇÀ» ÁÖ¸é cpu ¹ö±×¸¦ ¿ìÈ¸ÇÏ±â À§ÇÑ stub ÄÚµå¸¦ »ı¼ºÇÏÁö ¾Ê°í Á÷Á¢  BLX ÄÚµå¸¦ »ı¼ÍÇÏ°Ô µÈ´Ù .
+ì´ë ‡ê²Œ --no-fix-arm1176 ì˜µì…˜ì„ ì£¼ë©´ cpu ë²„ê·¸ë¥¼ ìš°íšŒí•˜ê¸° ìœ„í•œ stub ì½”ë“œë¥¼ ìƒì„±í•˜ì§€ ì•Šê³  ì§ì ‘  BLX ì½”ë“œë¥¼ ìƒì…©í•˜ê²Œ ëœë‹¤ .
 
 ***
 
-³¡ ~~~~
+ë ~~~~
 -----------
 
