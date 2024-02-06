@@ -3,21 +3,21 @@ DS Technical Data
 
 **Processors**    
 
-    1x ARM946E-S 32bit RISC CPU, 66MHz (NDS9 video) (not used in GBA mode)
-    1x ARM7TDMI    32bit RISC CPU, 33MHz (NDS7 sound) (16MHz in GBA mode)
+    1x ARM946E-S    32bit RISC CPU, 66MHz (NDS9 video) (not used in GBA mode)
+    1x ARM7TDMI     32bit RISC CPU, 33MHz (NDS7 sound) (16MHz in GBA mode)
 
 **Internal Memory**    
 
-    4096KB Main RAM (8192KB in debug version)
-    96KB     WRAM (64K mapped to NDS7, plus 32K mappable to NDS7 or NDS9)
-    60KB     TCM/Cache (TCM: 16K Data, 32K Code) (Cache: 4K Data, 8K Code)
-    656KB    VRAM (allocateable as BG/OBJ/2D/3D/Palette/Texture/WRAM memory)
-    4KB        OAM/PAL (2K OBJ Attribute Memory, 2K Standard Palette RAM)
-    248KB    Internal 3D Memory (104K Polygon RAM, 144K Vertex RAM)
-    ?KB        Matrix Stack, 48 scanline cache
-    8KB        Wifi RAM
-    256KB    Firmware FLASH (512KB in iQue variant, with chinese charset)
-    36KB     BIOS ROM (4K NDS9, 16K NDS7, 16K GBA)
+    4096KB  Main RAM (8192KB in debug version)
+    96KB    WRAM (64K mapped to NDS7, plus 32K mappable to NDS7 or NDS9)
+    60KB    TCM/Cache (TCM: 16K Data, 32K Code) (Cache: 4K Data, 8K Code)
+    656KB   VRAM (allocateable as BG/OBJ/2D/3D/Palette/Texture/WRAM memory)
+    4KB     OAM/PAL (2K OBJ Attribute Memory, 2K Standard Palette RAM)
+    248KB   Internal 3D Memory (104K Polygon RAM, 144K Vertex RAM)
+    ?KB     Matrix Stack, 48 scanline cache
+    8KB     Wifi RAM
+    256KB   Firmware FLASH (512KB in iQue variant, with chinese charset)
+    36KB    BIOS ROM (4K NDS9, 16K NDS7, 16K GBA)
 
 **Video**    
 
@@ -31,11 +31,11 @@ DS Technical Data
     16 sound channels (16x PCM8/PCM16/IMA-ADPCM, 6x PSG-Wave, 2x PSG-Noise)
     2 sound capture units (for echo effects, etc.)
     Output: Two built-in stereo speakers, and headphones socket
-    Input:    One built-in microphone, and microphone socket
+    Input:  One built-in microphone, and microphone socket
 
 **Controls**    
 
-    Gamepad            4 Direction Keys, 8 Buttons
+    Gamepad        4 Direction Keys, 8 Buttons
     Touchscreen    (on lower LCD screen)
 
 **Communication Ports**    
@@ -92,23 +92,23 @@ Although, when properly using cache/tcm, then the 66MHz processor &lt;can&gt; be
 ## ARM9 I/O Map    
 **ARM9 Display Engine A**    
 
-    4000000h    4        2D Engine A - DISPCNT - LCD Control (Read/Write)
-    4000004h    2        2D Engine A+B - DISPSTAT - General LCD Status (Read/Write)
-    4000006h    2        2D Engine A+B - VCOUNT - Vertical Counter (Read only)
-    4000008h    50h    2D Engine A (same registers as GBA, some changed bits)
-    4000060h    2        DISP3DCNT - 3D Display Control Register (R/W)
-    4000064h    4        DISPCAPCNT - Display Capture Control Register (R/W)
-    4000068h    4        DISP\_MMEM\_FIFO - Main Memory Display FIFO (R?/W)
-    400006Ch    2        2D Engine A - MASTER_BRIGHT - Master Brightness Up/Down
+    4000000h    4       2D Engine A - DISPCNT - LCD Control (Read/Write)
+    4000004h    2       2D Engine A+B - DISPSTAT - General LCD Status (Read/Write)
+    4000006h    2       2D Engine A+B - VCOUNT - Vertical Counter (Read only)
+    4000008h    50h     2D Engine A (same registers as GBA, some changed bits)
+    4000060h    2       DISP3DCNT - 3D Display Control Register (R/W)
+    4000064h    4       DISPCAPCNT - Display Capture Control Register (R/W)
+    4000068h    4       DISP\_MMEM\_FIFO - Main Memory Display FIFO (R?/W)
+    400006Ch    2       2D Engine A - MASTER_BRIGHT - Master Brightness Up/Down
 
 [GBA I/O Map](#gbaiomap)    
 **ARM9 DMA, Timers, and Keypad**    
 
-    40000B0h    30h    DMA Channel 0..3
-    40000E0h    10h    DMA FILL Registers for Channel 0..3
-    4000100h    10h    Timers 0..3
-    4000130h    2        KEYINPUT
-    4000132h    2        KEYCNT
+    40000B0h    30h     DMA Channel 0..3
+    40000E0h    10h     DMA FILL Registers for Channel 0..3
+    4000100h    10h     Timers 0..3
+    4000130h    2       KEYINPUT
+    4000132h    2       KEYCNT
 
 **ARM9 IPC/ROM**    
 
@@ -161,9 +161,9 @@ Although, when properly using cache/tcm, then the 66MHz processor &lt;can&gt; be
 [DS 3D I/O Map](#ds3diomap)    
 **ARM9 Display Engine B**    
 
-    4001000h    4        2D Engine B - DISPCNT - LCD Control (Read/Write)
-    4001008h    50h    2D Engine B (same registers as GBA, some changed bits)
-    400106Ch    2        2D Engine B - MASTER_BRIGHT - 16bit - Brightness Up/Down
+    4001000h    4       2D Engine B - DISPCNT - LCD Control (Read/Write)
+    4001008h    50h     2D Engine B (same registers as GBA, some changed bits)
+    400106Ch    2       2D Engine B - MASTER_BRIGHT - 16bit - Brightness Up/Down
 
 **ARM9 DSi Extra Registers**    
 
@@ -1907,57 +1907,57 @@ DS 3D I/O Map
 
     Address    Siz Name                        Expl.
  **Rendering Engine (per Frame settings)**
-    4000060h 2     DISP3DCNT             3D Display Control Register (R/W)
-    4000320h 1     RDLINES_COUNT     Rendered Line Count Register (R)
-    4000330h 10h EDGE_COLOR            Edge Colors 0..7 (W)
-    4000340h 1     ALPHA\_TEST\_REF    Alpha-Test Comparision Value (W)
-    4000350h 4     CLEAR_COLOR         Clear Color Attribute Register (W)
-    4000354h 2     CLEAR_DEPTH         Clear Depth Register (W)
-    4000356h 2     CLRIMAGE_OFFSET Rear-plane Bitmap Scroll Offsets (W)
-    4000358h 4     FOG_COLOR             Fog Color (W)
-    400035Ch 2     FOG_OFFSET            Fog Depth Offset (W)
-    4000360h 20h FOG_TABLE             Fog Density Table, 32 entries (W)
-    4000380h 40h TOON_TABLE            Toon Table, 32 colors (W)
+    4000060h 2      DISP3DCNT             3D Display Control Register (R/W)
+    4000320h 1      RDLINES_COUNT     Rendered Line Count Register (R)
+    4000330h 10h    EDGE_COLOR            Edge Colors 0..7 (W)
+    4000340h 1      ALPHA\_TEST\_REF    Alpha-Test Comparision Value (W)
+    4000350h 4      CLEAR_COLOR         Clear Color Attribute Register (W)
+    4000354h 2      CLEAR_DEPTH         Clear Depth Register (W)
+    4000356h 2      CLRIMAGE_OFFSET Rear-plane Bitmap Scroll Offsets (W)
+    4000358h 4      FOG_COLOR             Fog Color (W)
+    400035Ch 2      FOG_OFFSET            Fog Depth Offset (W)
+    4000360h 20h    FOG_TABLE             Fog Density Table, 32 entries (W)
+    4000380h 40h    TOON_TABLE            Toon Table, 32 colors (W)
  **Geometry Engine (per Polygon/Vertex settings)**
     4000400h 40h GXFIFO                    Geometry Command FIFO (W)
     4000440h ... ...                         Geometry Command Ports (see below)
-    4000600h 4     GXSTAT                    Geometry Engine Status Register (R and R/W)
-    4000604h 4     RAM_COUNT             Polygon List & Vertex RAM Count Register (R)
-    4000610h 2     DISP\_1DOT\_DEPTH 1-Dot Polygon Display Boundary Depth (W)
-    4000620h 10h POS_RESULT            Position Test Results (R)
-    4000630h 6     VEC_RESULT            Vector Test Results (R)
-    4000640h 40h CLIPMTX_RESULT    Read Current Clip Coordinates Matrix (R)
-    4000680h 24h VECMTX_RESULT     Read Current Directional Vector Matrix (R)
+    4000600h 4      GXSTAT                    Geometry Engine Status Register (R and R/W)
+    4000604h 4      RAM_COUNT             Polygon List & Vertex RAM Count Register (R)
+    4000610h 2      DISP\_1DOT\_DEPTH 1-Dot Polygon Display Boundary Depth (W)
+    4000620h 10h    POS_RESULT            Position Test Results (R)
+    4000630h 6      VEC_RESULT            Vector Test Results (R)
+    4000640h 40h    CLIPMTX_RESULT    Read Current Clip Coordinates Matrix (R)
+    4000680h 24h    VECMTX_RESULT     Read Current Directional Vector Matrix (R)
 
     
 **Geometry Commands (can be invoked by Port Address, or by Command ID)**    
 Table shows Port Address, Command ID, Number of Parameters, and Clock Cycles.    
 
-    Address    Cmd Pa.Cy.
-    N/A            00h -    -     NOP - No Operation (for padding packed GXFIFO commands)
-    4000440h 10h 1    1     MTX_MODE - Set Matrix Mode (W)
-    4000444h 11h -    17    MTX_PUSH - Push Current Matrix on Stack (W)
-    4000448h 12h 1    36    MTX_POP - Pop Current Matrix from Stack (W)
-    400044Ch 13h 1    17    MTX_STORE - Store Current Matrix on Stack (W)
-    4000450h 14h 1    36    MTX_RESTORE - Restore Current Matrix from Stack (W)
-    4000454h 15h -    19    MTX_IDENTITY - Load Unit Matrix to Current Matrix (W)
-    4000458h 16h 16 34    MTX\_LOAD\_4x4 - Load 4x4 Matrix to Current Matrix (W)
-    400045Ch 17h 12 30    MTX\_LOAD\_4x3 - Load 4x3 Matrix to Current Matrix (W)
-    4000460h 18h 16 35* MTX\_MULT\_4x4 - Multiply Current Matrix by 4x4 Matrix (W)
-    4000464h 19h 12 31* MTX\_MULT\_4x3 - Multiply Current Matrix by 4x3 Matrix (W)
-    4000468h 1Ah 9    28* MTX\_MULT\_3x3 - Multiply Current Matrix by 3x3 Matrix (W)
-    400046Ch 1Bh 3    22    MTX_SCALE - Multiply Current Matrix by Scale Matrix (W)
-    4000470h 1Ch 3    22* MTX_TRANS - Mult. Curr. Matrix by Translation Matrix (W)
-    4000480h 20h 1    1     COLOR - Directly Set Vertex Color (W)
-    4000484h 21h 1    9*    NORMAL - Set Normal Vector (W)
-    4000488h 22h 1    1     TEXCOORD - Set Texture Coordinates (W)
-    400048Ch 23h 2    9     VTX_16 - Set Vertex XYZ Coordinates (W)
-    4000490h 24h 1    8     VTX_10 - Set Vertex XYZ Coordinates (W)
-    4000494h 25h 1    8     VTX_XY - Set Vertex XY Coordinates (W)
-    4000498h 26h 1    8     VTX_XZ - Set Vertex XZ Coordinates (W)
-    400049Ch 27h 1    8     VTX_YZ - Set Vertex YZ Coordinates (W)
-    40004A0h 28h 1    8     VTX_DIFF - Set Relative Vertex Coordinates (W)
-    40004A4h 29h 1    1     POLYGON_ATTR - Set Polygon Attributes (W)
+    Address    Cmd      Pa.Cy.
+    N/A                 00h -    -     NOP - No Operation (for padding packed GXFIFO commands)
+    4000440h 10h 1      1     MTX_MODE - Set Matrix Mode (W)
+    4000444h 11h -      17    MTX_PUSH - Push Current Matrix on Stack (W)
+    4000448h 12h 1      36    MTX_POP - Pop Current Matrix from Stack (W)
+    400044Ch 13h 1      17    MTX_STORE - Store Current Matrix on Stack (W)
+    4000450h 14h 1      36    MTX_RESTORE - Restore Current Matrix from Stack (W)
+    4000454h 15h -      19    MTX_IDENTITY - Load Unit Matrix to Current Matrix (W)
+    4000458h 16h 16     34    MTX\_LOAD\_4x4 - Load 4x4 Matrix to Current Matrix (W)
+    400045Ch 17h 12     30    MTX\_LOAD\_4x3 - Load 4x3 Matrix to Current Matrix (W)
+    4000460h 18h 16     35*     MTX\_MULT\_4x4 - Multiply Current Matrix by 4x4 Matrix (W)
+    4000464h 19h 12     31*     MTX\_MULT\_4x3 - Multiply Current Matrix by 4x3 Matrix (W)
+    4000468h 1Ah 9      28*     MTX\_MULT\_3x3 - Multiply Current Matrix by 3x3 Matrix (W)
+    400046Ch 1Bh 3      22      MTX_SCALE - Multiply Current Matrix by Scale Matrix (W)
+    4000470h 1Ch 3      22*     MTX_TRANS - Mult. Curr. Matrix by Translation Matrix (W)
+    4000480h 20h 1      1       COLOR - Directly Set Vertex Color (W)
+    4000484h 21h 1      9*      NORMAL - Set Normal Vector (W)
+    4000488h 22h 1      1       TEXCOORD - Set Texture Coordinates (W)
+    400048Ch 23h 2      9       VTX_16 - Set Vertex XYZ Coordinates (W)
+    4000490h 24h 1      8       VTX_10 - Set Vertex XYZ Coordinates (W)
+    4000494h 25h 1      8       VTX_XY - Set Vertex XY Coordinates (W)
+    4000498h 26h 1      8       VTX_XZ - Set Vertex XZ Coordinates (W)
+    400049Ch 27h 1      8     VTX_YZ - Set Vertex YZ Coordinates (W)
+    40004A0h 28h 1      8     VTX_DIFF - Set Relative Vertex Coordinates (W)
+    40004A4h 29h 1      1     POLYGON_ATTR - Set Polygon Attributes (W)
     40004A8h 2Ah 1    1     TEXIMAGE_PARAM - Set Texture Parameters (W)
     40004ACh 2Bh 1    1     PLTT_BASE - Set Texture Palette Base Address (W)
     40004C0h 30h 1    4     DIF_AMB - MaterialColor0 - Diffuse/Ambient Reflect. (W)
@@ -1980,15 +1980,15 @@ In MTX\_MODE=2 (Simultanous Set), MTX\_MULT/TRANS take additional 30 cycles.
 DS 3D Display Control    
 **4000060h - DISP3DCNT - 3D Display Control Register (R/W)**    
 
-    0         Texture Mapping            (0=Disable, 1=Enable)
-    1         PolygonAttr Shading    (0=Toon Shading, 1=Highlight Shading)
-    2         Alpha-Test                     (0=Disable, 1=Enable) (see ALPHA\_TEST\_REF)
-    3         Alpha-Blending             (0=Disable, 1=Enable) (see various Alpha values)
-    4         Anti-Aliasing                (0=Disable, 1=Enable)
-    5         Edge-Marking                 (0=Disable, 1=Enable) (see EDGE_COLOR)
-    6         Fog Color/Alpha Mode (0=Alpha and Color, 1=Only Alpha) (see FOG_COLOR)
-    7         Fog Master Enable        (0=Disable, 1=Enable)
-    8-11    Fog Depth Shift            (FOG\_STEP=400h shr FOG\_SHIFT) (see FOG_OFFSET)
+    0         Texture Mapping           (0=Disable, 1=Enable)
+    1         PolygonAttr Shading       (0=Toon Shading, 1=Highlight Shading)
+    2         Alpha-Test                (0=Disable, 1=Enable) (see ALPHA\_TEST\_REF)
+    3         Alpha-Blending            (0=Disable, 1=Enable) (see various Alpha values)
+    4         Anti-Aliasing             (0=Disable, 1=Enable)
+    5         Edge-Marking              (0=Disable, 1=Enable) (see EDGE_COLOR)
+    6         Fog Color/Alpha Mode      (0=Alpha and Color, 1=Only Alpha) (see FOG_COLOR)
+    7         Fog Master Enable         (0=Disable, 1=Enable)
+    8-11    Fog Depth Shift             (FOG\_STEP=400h shr FOG\_SHIFT) (see FOG_OFFSET)
     12        Color Buffer RDLINES Underflow (0=None, 1=Underflow/Acknowledge)
     13        Polygon/Vertex RAM Overflow        (0=None, 1=Overflow/Acknowledge)
     14        Rear-Plane Mode                                (0=Blank, 1=Bitmap)
@@ -9020,11 +9020,11 @@ Extended Settings contain some additional information which is not supported by 
     1Dh    1    Date Day Recovery Value     (1..31)
     1Eh    1    Date Year Recovery Value    (0..99)
     1Fh    1    Date/Time Flags
-                        Bit0-1 Date Format     (0=YYYY-MM-DD, 1=MM-DD-YYYY, 2=DD-MM-YYYY)
-                        Bit2     Friendly Date (0=Raw Numeric, 1=With Day/Month Names)
-                        Bit5     Time DST            (0=Hide DST, 1=Show DST=On/Off)
-                        Bit6     Time Seconds    (0=Hide Seconds, 1=Show Seconds)
-                        Bit7     Time Format     (0=24 hour, 1=12 hour)
+                        Bit0-1  Date Format     (0=YYYY-MM-DD, 1=MM-DD-YYYY, 2=DD-MM-YYYY)
+                        Bit2    Friendly Date (0=Raw Numeric, 1=With Day/Month Names)
+                        Bit5    Time DST            (0=Hide DST, 1=Show DST=On/Off)
+                        Bit6    Time Seconds    (0=Hide Seconds, 1=Show Seconds)
+                        Bit7    Time Format     (0=24 hour, 1=12 hour)
     20h    1    Date Separator            (Ascii, usually Slash, or Dot)
     21h    1    Time Separator            (Ascii, usually Colon, or Dot)
     22h    1    Decimal Separator     (Ascii, usually Comma, or Dot)
